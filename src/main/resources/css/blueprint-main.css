@@ -1,0 +1,44 @@
+#hello-blueprint-page-description {
+    resize: none;
+}
+
+#hello-blueprint-form input, #hello-blueprint-form textarea {
+    max-width: 300px;
+    width: 100%;
+    padding: 4px 5px;
+}
+
+.hello-blueprint-about {
+    float: right;
+    width: 300px;
+    padding: 20px;
+}
+
+.hello-blueprint-about > h1 {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* AUI overrides */
+
+#hello-blueprint-form fieldset {
+    padding: 0;
+}
+
+#create-dialog .dialog-panel-body {
+    overflow: auto;
+}
+
+/*
+Some fixes for the clear button not showing up in AUI select2 
+--- Refer to issue AUI-1715 @ https://ecosystem.atlassian.net/browse/AUI-1715 ---
+*/
+.aui-select2-container.select2-allowclear .select2-choice .select2-search-choice-close {
+  display: block;
+  opacity: 0.7;
+  top: 10px;
+}
+
+.aui-select2-container.select2-allowclear .select2-choice .select2-search-choice-close:hover {
+  opacity: 1;
+}

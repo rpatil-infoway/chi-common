@@ -1,0 +1,9 @@
+<p>Hi $toName and $ccName,</p>
+
+<p>Please note the space <b>$spaceName ($spaceKey)</b> has been deleted by $toName on $date.</p>
+
+<span style="font-size: 12pt; font-family: Verdana, sans-serif; color: rgb(220, 90, 35);">InfoScribe</span><br/>
+<span style="font-size: 10pt; font-family: Verdana, sans-serif; color: rgb(0, 58, 99);">Canada Health Infoway - Inforoute Sant&#233; du Canada<br/>
+<br/>
+<hr>
+<p style="font-size:10px; color:#666;">Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mail. Please do not reply to this email.</p>

@@ -1,0 +1,20 @@
+<p>
+  <ac:placeholder>Please update the page title with an unique id with the prefix "BR - ".  It will be used as the Business Rule ID.  </ac:placeholder>
+</p>
+<p>
+  <ac:placeholder>Tips - You can add additional Label(s) to this page to categorize this business rule. </ac:placeholder>
+</p>
+<ac:structured-macro ac:name="details">
+  <ac:rich-text-body>
+    <table>
+      <tbody>
+        <tr>
+          <th>Description</th>
+          <td>
+            <p>The ability to request a medication profile must be available as a stand-alone function for use at any time.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ac:rich-text-body>
+</ac:structured-macro>

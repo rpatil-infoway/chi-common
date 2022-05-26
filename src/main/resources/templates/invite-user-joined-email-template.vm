@@ -1,0 +1,9 @@
+<p>Hi $invite.approver.fullName,</p>
+
+<p>For your information, <b>$invite.inviteeName ($invite.inviteeEmail)</b> has now joined InfoScribe and has access to the <a href="$invite.spaceLink">$invite.spaceName</a> space based on your previous invite.</p>
+
+<span style="font-size: 12pt; font-family: Verdana, sans-serif; color: rgb(220, 90, 35);">InfoScribe</span><br/>
+<span style="font-size: 10pt; font-family: Verdana, sans-serif; color: rgb(0, 58, 99);">Canada Health Infoway - Inforoute Sant&#233; du Canada<br/>
+<br/>
+<hr>
+<p style="font-size:10px; color:#666;">Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mail. Please do not reply to this email.</p>

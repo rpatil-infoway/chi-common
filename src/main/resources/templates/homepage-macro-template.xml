@@ -1,0 +1,45 @@
+<!-- SPACE_NAME will be set dynamically in HomepageMacro.java  -->
+<ac:structured-macro ac:name="unmigrated-wiki-markup">
+  <ac:plain-text-body><![CDATA[{metadata:scroll.pagetitle|hidden=true}***SPACE_NAME***{metadata}]]></ac:plain-text-body>
+</ac:structured-macro>
+
+<ac:structured-macro ac:name="scroll-pdf-ignore">
+  	<ac:rich-text-body>
+	<ac:layout>
+		<ac:layout-section ac:type='two_equal'>
+			<ac:layout-cell>
+				<h2>Space Info</h2>
+				<ac:structured-macro ac:name='chi-spaceinfo'/>
+				<ac:structured-macro ac:name="chi-edit-space-info"/>
+			</ac:layout-cell>
+			<!--<ac:layout-cell>
+				<h2>Tools</h2>
+				<ac:structured-macro ac:name='unmigrated-wiki-markup'>
+					<ac:plain-text-body>
+					 	<![CDATA[{html}
+					 		<a id='com-k15t-confluence-scroll-pdf-launcher' href='/pages/viewpage.action' 
+					 		rel='nofollow' class='active aui-dropdown2-active' title='' style='margin-left: -10px;'>
+					  			<span style='margin-left: 30px!important;'>Export this space to PDF</span>
+							</a>{html}]]>
+					</ac:plain-text-body>
+				</ac:structured-macro>
+			</ac:layout-cell>-->
+		</ac:layout-section>
+		
+		<ac:layout-section ac:type='single'>
+			<ac:layout-cell>
+				<hr/>	
+		       <ac:structured-macro ac:name='recently-updated'>
+					<ac:parameter ac:name='max'>10</ac:parameter>
+				</ac:structured-macro>
+				<br/>
+				<ac:structured-macro ac:name='tip'>
+					<ac:rich-text-body>Please use the navigation on the left hand-side to navigate this space.
+					</ac:rich-text-body>
+				</ac:structured-macro>
+		        <!-- <ac:macro ac:name="load-latest-scroll-version"/> -->
+			 </ac:layout-cell>
+		</ac:layout-section>
+	</ac:layout>
+ 	</ac:rich-text-body>
+</ac:structured-macro>

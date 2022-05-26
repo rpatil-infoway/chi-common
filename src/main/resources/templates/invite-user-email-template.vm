@@ -1,0 +1,22 @@
+<p>Hi $invite.inviteeName,</p>
+
+<p>You have been given access to the InfoScribe space <b>$invite.spaceName</b> at <a href="$invite.spaceLink">$invite.spaceLink</a></p>
+
+<p>Please follow these instructions to get access to InfoScribe:</p>
+
+<ol>
+<li><a href="https://infocentral.infoway-inforoute.ca/en/register">Register</a> for an Infoway account if you don't already have one. Proceed to the next step once you have an Infoway account. 
+NOTE: If you are using a different email address for your Infoway account, then please notify the approver <b><a href="mailto:'$invite.approverName'<$invite.approver.email>">$invite.approver.fullName</a></b> as CC'd in this email 
+so the approver can setup a new invite for you.</li> 
+<li>Login to <a href="https://sso.infoway-inforoute.ca/openam/UI/Login?goto=https%3A%2F%2Finfoscribe.infoway-inforoute.ca">InfoScribe</a> using your verified Infoway account.</li>
+<li>You will be redirected to the InfoScribe home page. Please click on the <b>Request Access</b> button.</li>
+<li>You will be prompted that your request for InfoScribe has been approved.  You can now access the space <b>$invite.spaceName</b> at <a href="$invite.spaceLink">$invite.spaceLink</a>.</li>
+</ol> 
+
+<p>If you have any question regarding on this invite, please contact the approver <b><a href="mailto:'$invite.approverName'<$invite.approver.email>">$invite.approver.fullName</a></b> as CC'd in this email.</p>
+
+<span style="font-size: 12pt; font-family: Verdana, sans-serif; color: rgb(220, 90, 35);">InfoScribe</span><br/>
+<span style="font-size: 10pt; font-family: Verdana, sans-serif; color: rgb(0, 58, 99);">Canada Health Infoway - Inforoute Sant&#233; du Canada<br/>
+<br/>
+<hr>
+<p style="font-size:10px; color:#666;">Please note: This e-mail was sent from a notification-only address that cannot accept incoming e-mail. Please do not reply to this email.</p>

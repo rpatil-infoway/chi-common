@@ -1,0 +1,166 @@
+<ac:structured-macro ac:name="scroll-pdf-ignore">
+  <ac:rich-text-body>
+    <h1>Quick Links</h1>
+    <p>
+      <ac:structured-macro ac:name="sv-pagetree"/>
+    </p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p>
+  <ac:placeholder>Enter content here.</ac:placeholder>
+</p>
+<p> </p>
+
+
+<!-- <ac:layout>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <h1>
+        <strong>Get Medication Profile Specification <small>v1.0</small>
+        </strong>
+      </h1>
+      <p>
+        <span>This Get Medication Profile Specification provides a software developer with the requirements for downloading and displaying a list of a patient’s medications in a clinical system.</span>
+      </p>
+      <ac:structured-macro ac:name="info">
+        <ac:parameter ac:name="icon">false</ac:parameter>
+        <ac:parameter ac:name="title">Note</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(0,51,102);">We have leveraged and adapted materials provided to us from eHealth Saskatchewan, Alberta Health and IBM to create this example Medication Profile Summary specification.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="two_equal">
+    <ac:layout-cell>
+      <h1>
+        <strong>Getting Started <small>for developer</small>
+        </strong>
+      </h1>
+      <ul>
+        <li>Step 1: Review the <ac:link>
+            <ri:page ri:content-title="Overview and Mockup"/>
+          </ac:link> section</li>
+        <li>Step 2: Review the <ac:link>
+            <ri:page ri:content-title="Technical Interoperability"/>
+            <ac:plain-text-link-body><![CDATA[Technical Interoperability]]></ac:plain-text-link-body>
+          </ac:link> section</li>
+        <li>Step 3: Review the <ac:link>
+            <ri:page ri:content-title="Information Interoperability"/>
+            <ac:plain-text-link-body><![CDATA[Information Interoperability]]></ac:plain-text-link-body>
+          </ac:link> section</li>
+      </ul>
+    </ac:layout-cell>
+    <ac:layout-cell>
+      <h1>
+        <strong>Quick Links <small>for developer</small>
+        </strong>
+      </h1>
+      <table>
+        <tbody>
+          <tr>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>
+                <ac:link ac:anchor="mockup">
+                  <ri:page ri:content-title="Overview and Mockup"/>
+                  <ac:plain-text-link-body><![CDATA[Mockup]]></ac:plain-text-link-body>
+                </ac:link>
+              </strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>API</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>Sample Code</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="highlight-grey" data-highlight-colour="grey">
+              <strong>Sample Messages</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey">
+              <strong>Transport</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>Security</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        <strong>
+          <br/>
+        </strong>
+      </p>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="two_equal">
+    <ac:layout-cell>
+      <h1>
+        <strong>Getting Started <small>for business analyst</small>
+        </strong>
+      </h1>
+      <ul>
+        <li>Step 1: Review the <ac:link>
+            <ri:page ri:content-title="Overview and Mockup"/>
+          </ac:link> section</li>
+        <li>Step 2: Review the <ac:link>
+            <ri:page ri:content-title="Business Interoperability"/>
+            <ac:plain-text-link-body><![CDATA[Business Interoperability]]></ac:plain-text-link-body>
+          </ac:link> section</li>
+        <li>Step 3: Review the <ac:link>
+            <ri:page ri:content-title="Information Interoperability"/>
+            <ac:plain-text-link-body><![CDATA[Information Interoperability]]></ac:plain-text-link-body>
+          </ac:link> section</li>
+      </ul>
+    </ac:layout-cell>
+    <ac:layout-cell>
+      <h1>
+        <strong>Quick Links <small>for business analyst</small>
+        </strong>
+      </h1>
+      <table>
+        <tbody>
+          <tr>
+            <td class="highlight-grey" data-highlight-colour="grey">
+              <strong style="text-align: center;">
+                <ac:link ac:anchor="mockup">
+                  <ri:page ri:content-title="Overview and Mockup"/>
+                  <ac:plain-text-link-body><![CDATA[Mockup]]></ac:plain-text-link-body>
+                </ac:link>
+              </strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>Use Cases</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>Business Rules</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="highlight-grey" data-highlight-colour="grey" style="text-align: center;">
+              <strong>Hints</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey">
+              <strong>Interaction Diagram</strong>
+            </td>
+            <td class="highlight-grey" data-highlight-colour="grey">
+              <strong>Clinical Information</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <h1>
+        <strong>Demo Application</strong>
+      </h1>
+      <p>Will add later...</p>
+    </ac:layout-cell>
+  </ac:layout-section>
+</ac:layout>
+ -->

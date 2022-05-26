@@ -1,0 +1,167 @@
+<p>
+  <strong>On this Page:</strong>
+</p>
+<p>
+  <ac:structured-macro ac:name="toc"/>
+</p>
+
+<h1>Clinicians Expression of Need</h1>
+<ac:structured-macro ac:name="tip">
+  <ac:rich-text-body>This section documents the outcomes of a Line of Inquiry and Observation that are guided by a set of Clinical Interoperability Principles that at a high level describe what a clinician needs in a successful Interoperability solution. The Clinical Interoperability Principles guide a line of inquiry, observation or investigation that help to surface Clinical Requirements.</ac:rich-text-body>
+</ac:structured-macro>
+
+<h2>Information Principles (The content I need)</h2>
+<ac:structured-macro ac:name="tip">
+  <ac:rich-text-body>This section documents the outcomes of a Line of Inquiry and Observation that are guided by a set of Clinical Interoperability Principles that at a high level describe what a clinician needs in a successful Interoperability solution. The Clinical Interoperability Principles guide a line of inquiry, observation or investigation that help to surface Clinical Requirements.</ac:rich-text-body>
+</ac:structured-macro>
+<h2>Information Principles (The content I need)</h2>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">1. I need to receive and send notifications about my patients and transitions of care.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What notifications do I need to send?</li>
+      <li>What notifications do I need to receive?</li>
+      <li>Why do I need to send and receive these notifications</li>
+      <li>What transitions of care need notification?</li>
+      <li>Where do I want/ need to receive this information?</li>
+      <li>From where do I want / need to send this information?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">2. I need to know the data is trustworthy and secure and who it is from.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>Why is this important?</li>
+      <li>How do I know who it is from?</li>
+      <li>How do I know it is trustworthy?</li>
+      <li>How do I know it is secure?</li>
+      <li>How do I know it is from an authoritative source?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">3. I need clinically relevant information about my patient.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What is clinically relevant in this particular situation?</li>
+      <li>What information do I need?</li>
+      <li>Why this information?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">4. I need to share and view relevant patient information with others in the circle of care including the patient.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>Who do I need to share information with?</li>
+      <li>What information do I need to share?</li>
+      <li>How often do I need to share this information?</li>
+      <li>Why do I need to share this information?</li>
+      <li>Whose information do I need to view?</li>
+      <li>How often do I need to view it?</li>
+      <li>How do I share information with the patient?</li>
+      <li>How does the patient share information with me?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">5. I need information to be consistent in its meaning. (1)</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What is meant by consistent in its meaning?</li>
+      <li>Why is this important?</li>
+      <li>What happens if it is not consistent in meaning?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">6. I need available clinical data to be aggregated and assembled to support care delivery and health system use.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>How does it need to be aggregated and assembled?</li>
+      <li>Why do I need it to be aggregated and assembled?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<h2>Workflow Principles (minimal disruption to workflow)</h2>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">1. I need information access to be easy, intuitive, supporting my workflow, with minimal steps and clicks.</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What is your current workflow?</li>
+      <li>At what point in your workflow will you share or receive information?</li>
+      <li>How does this impact your workflow?</li>
+      <li>What do you need in order to make these changes easy, intuitive and support your workflow with minimal steps and clicks?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">2. I need this information to be available in one place and assembled together with other clinically relevant information.
+</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>Where should it be assembled?</li>
+      <li>What other clinically relevant information?</li>
+      <li>Why is this important?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">3. I need clinical decision support tools available to me at the point of care (relevant alerts and evidence based reference guidelines).
+</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What type of clinical decision support?</li>
+      <li>When is it required?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">4. I need this information to be available to me when and where I need it.
+</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>When do I need it?</li>
+      <li>Where do I need it?</li>
+      <li>How do I need to see it?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">5. I need to be in control of how I use a system and how I choose to interact with data.
+ </ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What does this mean to me?</li>
+      <li>What flexibility do I have to manipulate the data – i.e. graph it, trend it, see only recent, see all history, etc.</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">6. I need to know that the system supports my clinical guidelines, standards of practice and regulatory requirements.
+ </ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>What are the clinical guidelines?</li>
+      <li>How should the system help to support those clinical guidelines?</li>
+      <li>What are the standards of practice?</li>
+      <li>How should the system help to support those standards of practice?</li>
+      <li>What are the regulatory requirements?</li>
+      <li>How should the system help to adhere to regulatory requirements?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="expand">
+  <ac:parameter ac:name="title">7. I need to work directly with the solution vendor to ensure that what gets designed and built is something I will use.
+</ac:parameter>
+  <ac:rich-text-body>
+    <ul>
+      <li>Does the vendor understand my needs?</li>
+      <li>Does the vendor understand my workflow?</li>
+    </ul>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p>
+  <ac:placeholder>To add more entries, type '{Expand' and hit the enter key. To edit the title of the Expand box, click the Expand box and then click the pop-up Edit button.</ac:placeholder>
+</p>

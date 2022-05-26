@@ -1,0 +1,22 @@
+<h1>Overview</h1>
+<p>
+  <ac:placeholder>Enter content here.</ac:placeholder>
+</p>
+<h1>Mockup</h1>
+<p>This mockup is to help the reader in getting a better understanding of the specification and how the final product <em>may</em> look like, specifically related to the business rules, hints, and workflows.</p>
+<ac:structured-macro ac:name="info">
+  <ac:parameter ac:name="icon">false</ac:parameter>
+  <ac:parameter ac:name="title">Note</ac:parameter>
+  <ac:rich-text-body>
+    <p>This mockup is intended to provide guidance to software developers, however it is not intended to be prescriptive.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p> </p>
+<p>
+  <ac:structured-macro ac:name="gallery"/>
+</p>
+<p>
+  <ac:structured-macro ac:name="attachments">
+    <ac:parameter ac:name="upload">true</ac:parameter>
+  </ac:structured-macro>
+</p>

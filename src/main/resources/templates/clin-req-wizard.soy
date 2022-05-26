@@ -1,0 +1,97 @@
+{namespace Infoway.Blueprints.ClinReq}
+
+/**
+ * Dialog form template
+ *
+ * @param atlToken the XSRF token to send with the form
+ * @param? fieldErrors the map of errors to display keyed by field name
+ * @param? name initial value for the name field
+ * @param? key initial value for the key field
+ */
+{template .dialogForm}
+<form action="#" method="post" id="decisions-form" class="common-space-form aui">
+    {call Confluence.Templates.Blueprints.CreateSpace.createSpaceFormFields}
+        {param showSpacePermission: false /}
+        {param fieldErrors: $fieldErrors /}
+        {param name: $name /}
+        {param key: $key /}
+    {/call}
+    	<div class="field-group">
+         	<label for="organizations-input">{getText('confluence.blueprint.organizations.label')}<span class="aui-icon icon-required"></span></label>
+         	<div class="description">Enter one or more values separated by commas:</div>
+         	<input class="select2-tags" id="organizations-input" name="organizations" />
+         </div>
+         <div class="field-group">
+         	<label for="domain-select">{getText('confluence.blueprint.domain.label')}<span class="aui-icon icon-required"></span></label>
+         	<div class="description">Select a provided value using the dropdown box:</div>
+         	<select class="select2" id="domain-select" name="domain">             
+         		<option></option>
+                <option value="Diagnostic Imaging">Diagnostic Imaging</option>
+                <option value="Laboratory">Laboratory</option>
+                <option value="Medication Management">Medication Management</option>
+                <option value="Public Health Surveillance">Public Health Surveillance</option>    
+        	</select>
+        	<div class="description">Or enter a new value below:</div>
+        	<input class="text" type="text" id="other-domain-input" name="freetextDomain">
+         </div>
+         <div class="field-group">
+         	<label for="clinical-area-select">{getText('confluence.blueprint.clinicalarea.label')}<span class="aui-icon icon-required"></span></label></label>
+         	<div class="description">Select a provided value using the dropdown box:</div>
+         	<select class="select2" id="clinical-area-select" name="clinicalArea">
+         		<option></option>             
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Nursing">Nursing</option>     
+        	</select>
+        	<div class="description">Or enter a new value below:</div>
+        	<input class="text" type="text" id="other-clinical-area-input" name="freetextClinicalArea">
+         </div>
+         <div class="field-group">
+			<label for="jurisdictions-select">{getText('confluence.blueprint.jurisdictions.label')}</label>
+			<select class="select2" multiple="multiple" id="jurisdictions-select" name="jurisdictions">
+				<option value="CA">CA</option>
+                <option value="AB">AB</option>
+                <option value="BC">BC</option>
+                <option value="MB">MB</option>
+                <option value="NB">NB</option>
+                <option value="NL">NL</option>
+                <option value="NS">NS</option>
+                <option value="NT">NT</option>
+                <option value="NU">NU</option>
+                <option value="ON">ON</option>
+                <option value="PE">PE</option>
+                <option value="QC">QC</option>
+                <option value="SK">SK</option>
+                <option value="YT">YT</option>
+            </select>
+         </div>  
+         <div class="field-group">
+         	<label for="standards-select">{getText('confluence.blueprint.standards.label')}</label>
+         	<div class="description">Select one or more provided values using the dropdown box:</div>
+         	<select class="select2" multiple="multiple" id="standards-select" name="standards">
+                <option value="CDA">CDA</option>
+                <option value="CeRx">CeRx</option>
+                <option value="MR">MR</option>
+                <option value="FHIR">FHIR</option>
+                <option value="HL7v2">HL7 v2</option>
+  				<option value="IHE">IHE</option>
+  				<option value="DICOM">DICOM</option>
+            </select>
+            <div class="description">Or enter one or more new values separated by commas:</div>
+            <input class="select2-tags" id="other-standards-input" name="freetextStandards">
+         </div>
+         <div class="field-group">
+         	<label for="standards-version-input">{getText('confluence.blueprint.standardsVer.label')}</label>
+            <input class="text" type="text" id="standards-version-input" name="standardsVersion" />
+         </div>
+         <div class="field-group">
+         	<label for="metadata-input">{getText('confluence.blueprint.metadata.label')}</label>
+         	<div class="description">Enter one or more new values separated by commas:</div>
+         	<input class="select2-tags" id="metadata-input" name="metadata" />
+         </div>
+		
+    <input type="hidden" name="noPageTitlePrefix" value="true" />
+    <input type="hidden" name="atl_token" value="{$atlToken}" />
+</form>
+
+{/template}

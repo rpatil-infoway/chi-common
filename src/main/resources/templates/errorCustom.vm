@@ -1,0 +1,8 @@
+{
+	"status": "error",
+	"errors": [		
+		#foreach ($error in $action.getErrorMessages())
+		{ "error": "$error" }#if($velocityHasNext),#end
+		#end
+	]
+}

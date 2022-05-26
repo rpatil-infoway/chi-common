@@ -1,0 +1,589 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/chi-plugin-icon.png</param>
+        <param name="plugin-logo">images/chi-plugin-logo.png</param>
+        <!-- 
+        <bundle-instructions>
+          <Export-Package>ca.infoway.confluence.plugins.common.spaceInfo</Export-Package>
+        </bundle-instructions>
+        -->
+    </plugin-info>
+    <!-- Confluence7.4 changes -->
+    <component
+            key="scroll-versions-event-listener"
+            class="ca.infoway.confluence.plugins.common.listeners.ScrollVersionsPublishEventListener"
+            name="Scroll Versions Publish Event Listener"
+    >
+    </component>
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher" />
+
+
+    <!--  <servlet name="Notify Invite Listener Servlet" key="notifyInviteListenerServlet" class="ca.infoway.confluence.plugins.common.spaceInfo.NotifyInviteListenerServlet">
+           <description>Notify Invite Listener when an user logins</description>
+            <url-pattern>/infoway/notify-invite-listener</url-pattern>
+       </servlet> -->
+  	
+    <servlet name="Update Users Servlet" key="updateUsers" class="ca.infoway.confluence.plugins.common.spaceInfo.UpdateUsersServlet">
+  		<description>Updates users' groups</description>
+  	 	<url-pattern>/infoway/manageusers</url-pattern>
+  	</servlet>
+
+  	<servlet name="Toggle Space Visibility Servlet" key="toggleSpaceVisibility" class="ca.infoway.confluence.plugins.common.spaceInfo.ToggleSpaceVisibilityServlet">
+  		<description>Makes space visible or invisible to confluence-users group</description>
+  	 	<url-pattern>/infoway/togglespacevisibility</url-pattern>
+  	</servlet>
+  	
+  	<servlet name="Inactive User Remove Servlet" key="inactiveUserRemove" class="ca.infoway.confluence.plugins.common.micros.InactiveUserRemoveServlet">
+  		<description>Removes an inactive user from InfoScribe</description>
+  	 	<url-pattern>/infoway/inactiveuserremove</url-pattern>
+  	</servlet>
+  	
+  	<servlet name="Edit Space Info Servlet" key="editSpaceInfo" class="ca.infoway.confluence.plugins.common.spaceInfo.EditSpaceInfoServlet">
+  		<description>Applies changes to a space's Space Info</description>
+  	 	<url-pattern>/infoway/editspaceinfo</url-pattern>
+  	</servlet>
+  	
+    <component name="global" key="global" class="ca.infoway.confluence.plugins.common.Global"/>
+    
+    <component name="Space Created Event Listener" key="spaceCreatedEventListener"
+    	class="ca.infoway.confluence.plugins.common.listeners.SpaceCreatedEventListener" />
+    	
+   <!--  <component name="Infoway Login Listener" key="loginListener"
+    	class="ca.infoway.confluence.plugins.common.listeners.LoginListener" /> -->
+	
+	<!-- Listener to create the author/doc-admin/reviewer groups for a space -->
+	<!-- <component key="staticAccessor" class="ca.infoway.confluence.plugins.common.listeners.StaticAccessor" /> -->
+    <component key="chiSpaceListener" class="ca.infoway.confluence.plugins.common.listeners.SpaceListener" />
+    
+    <component-import key="salRequestFactory" interface="com.atlassian.sal.api.net.RequestFactory" />
+    <component-import key="transactionTemplate" name="Hibernate Transaction Template" interface="com.atlassian.sal.api.transaction.TransactionTemplate">
+  	  <description>Component that provides a hibernate transaction</description>
+  	</component-import>
+    
+    <!-- cron job  -->
+  	<job key="myJob"
+          name="My Job"
+          class="ca.infoway.confluence.plugins.common.jobs.MyJob" />
+    <trigger key="myTrigger" name="My Trigger">       
+        <job key="myJob" />       
+        <schedule cron-expression="0 0 0 1 * ?" />     
+        <managed editable="true" keepingHistory="true" canRunAdhoc="true" canDisable="true" />
+    </trigger>
+    
+    <!-- cron job: check active users  -->
+    <job key="checkActiveUserCountJob"
+          name="Check Active User Count Job"
+          class="ca.infoway.confluence.plugins.common.jobs.CheckActiveUserCountJob" />
+    <trigger key="checkActiveUserCountTrigger" name="Check Active User Count Trigger">       
+        <job key="checkActiveUserCountJob" />       
+        <schedule cron-expression="0 0 11 ? * MON" />     
+        <managed editable="true" keepingHistory="true" canRunAdhoc="true" canDisable="true" />
+    </trigger>
+
+	<xhtml-macro name="chi-homepage"  key="chi-homepage" class="ca.infoway.confluence.plugins.common.template.HomepageMacro" hidden="true">
+		<parameters/>
+	</xhtml-macro>
+
+	<xhtml-macro name="chi-spaceinfo" key="chi-spaceinfo" class="ca.infoway.confluence.plugins.common.spaceInfo.SpaceInfoMacro" hidden="true">
+        <parameters/>
+    </xhtml-macro>
+    
+    <xhtml-macro name="chi-space-user-manager" key="chi-space-user-manager" class="ca.infoway.confluence.plugins.common.spaceInfo.SpaceUserManagerMacro" hidden="true">
+        <parameters/>
+    </xhtml-macro>
+    
+    <xhtml-macro name="chi-edit-space-info" key="chi-edit-space-info" class="ca.infoway.confluence.plugins.common.spaceInfo.EditSpaceInfoMacro" hidden="true">
+		<parameters/>
+	</xhtml-macro>
+    
+    <xhtml-macro name="chi-list-inactive-users" key="chi-list-inactive-users" class="ca.infoway.confluence.plugins.common.micros.ListInactiveUsersMacro" hidden="true">
+        <parameters/>
+    </xhtml-macro>
+    
+    <xhtml-macro name="chi-tips" key="chi-tips" class="ca.infoway.confluence.plugins.common.micros.TipsMacro">
+        <parameters>
+        	<parameter name="key" type="enum" required="true" default="">
+        		<value name="Specification Status"/>
+        		<value name="Authors"/>
+        		<value name="Reviewers"/>
+        		<value name="Approvers"/>
+        	</parameter>
+        </parameters>
+    </xhtml-macro>
+    
+    <xhtml-macro name="specification-page-sorter" key="specification-page-sorter" class="ca.infoway.confluence.plugins.common.micros.PageSorterMacro">
+        <parameters>
+        	<parameter name="order" type="enum">
+        		<value name="ascending"></value>
+        		<value name="descending"></value>
+        	</parameter>
+        </parameters>
+    </xhtml-macro>
+    
+    <xhtml-macro name="specification-sort-business-page" key="specification-sort-business-page" class="ca.infoway.confluence.plugins.common.micros.PageSorterMacro" hidden="true">
+        <parameters>
+        	<parameter name="order" type="enum">
+        		<value name="ascending"></value>
+        		<value name="descending"></value>
+        	</parameter>
+        </parameters>
+    </xhtml-macro>
+    
+   <xhtml-macro name="if-sso" key="if-sso" class="ca.infoway.confluence.plugins.common.createUser.IfSsoMacro" hidden="true">
+       <parameters>
+        	<parameter name="condition" type="enum" required="true">
+        		<value name="ssoActive"></value>
+        		<value name="ssoExpired"></value>
+        		<value name="ssoMissing"></value>
+        	</parameter>
+       </parameters>
+    </xhtml-macro>
+    
+    <xhtml-macro name="chi-space-create-request-macro" key="chi-space-create-request-macro" class="ca.infoway.confluence.plugins.common.requestForm.SpaceCreateRequestMacro" hidden="true">
+        <parameters/>
+    </xhtml-macro>
+    
+    <xhtml-macro name="chi-create-user-macro" key="chi-create-user-macro" class="ca.infoway.confluence.plugins.common.createUser.CreateUserMacro" hidden="true">
+        <parameters/>
+    </xhtml-macro>
+    
+    <xwork name="chi-xwork-actions" key="chi-xwork-actions">
+        <description key="item.add-draft-label-action-xwork.link.desc">Infoway Create or Invite User</description>
+        <package name="infoway-actions" extends="default" namespace="/plugins/infoway-actions">
+            <default-interceptor-ref name="defaultStack"/>
+            <action name="space-create-request-submit" class="ca.infoway.confluence.plugins.common.requestForm.SpaceCreateRequestAction">
+                <result name="success" type="redirect">${page.urlPath}?submit=success</result>
+                <result name="error" type="redirect">${page.urlPath}/?submit=failed</result>
+            </action>
+            <action name="invite-user-submit" class="ca.infoway.confluence.plugins.common.spaceInfo.InviteUserAction">
+                <result name="success" type="velocity">/templates/success.vm</result>
+                <result name="error" type="velocity">/templates/errorCustom.vm</result>
+            </action>
+            <action name="create-user-submit" class="ca.infoway.confluence.plugins.common.createUser.CreateUserAction">
+                <result name="success" type="redirect">/display/IH/Request+Approved</result>
+                <result name="error" type="redirect">/display/IH/Request+Denied</result>
+            </action>
+        </package>
+    </xwork>
+    
+     <!-- Macro for Create Business Rule Button in Business Interoperability Page of Specifications -->
+    <xhtml-macro name="chi-create-from-business-template" class="ca.infoway.confluence.plugins.common.template.CreateFromBusinessTemplateMacro" key="chi-create-from-business-template" hidden="true">
+        <parameters>
+        	<parameter name="pageType" type="enum" required="true">
+        		<value name="BR"/>
+      			<value name="GU"/>
+      			<value name="UC"/>
+      		</parameter>
+      		<parameter name="templateID" type="string">
+      		</parameter>
+        </parameters>
+    </xhtml-macro>
+    
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="chi-common"/>
+    
+    <!-- add our Global web resources -->
+    <!-- NOTE: change the key to refresh the client's browser cache  -->
+    <web-resource name="Global Resources" key="resources-v1.4">
+     	
+       <resource name="global.css" type="download" location="/css/global.css"/>
+       <resource name="global.js" type="download" location="/js/global.js"/>
+       <context>atl.general</context> <!-- global resources -->
+	</web-resource>
+
+    <web-resource key="chi-spaceinfo-resources" name="chi-spaceinfo Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>com.atlassian.auiplugin:aui-experimental-tooltips</dependency>
+        <dependency>com.atlassian.auiplugin:aui-experimental-table-sortable</dependency>
+        <dependency>com.atlassian.auiplugin:dialog2</dependency>
+        <dependency>com.atlassian.auiplugin:aui-select2</dependency>
+
+       
+        <resource type="download" name="chi-spaceinfo.css" location="/css/chi-spaceinfo.css"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>chi-spaceinfo</context>
+    </web-resource>
+    
+    <web-resource name="Blueprint Resources" key="blueprint-resources">
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <transformation extension="soy">
+            <transformer key="soyTransformer">
+                <functions>ca.infoway.confluence.plugins.soy:soy-core-functions</functions>
+            </transformer>
+        </transformation>
+
+        <resource type="download" name="blueprint-main.css" 
+        	location="/css/blueprint-main.css" />
+        	
+       	<!-- //////////////////////////////////////////// -->
+	    <!-- Blueprint Resources                          -->
+	    <!-- //////////////////////////////////////////// --> 	
+	        
+        <!-- Empty Blueprint Resource -->	
+        <resource type="download" name="empty-blueprint-wizard-soy.js" 
+        	location="/templates/empty-blueprint-wizard.soy" />
+        <resource type="download" name="empty-blueprint-wizard.js" 
+			location="/js/empty-blueprint-wizard.js" />
+
+		<!-- Empty with Versioning Blueprint Resources -->
+		<resource type="download" name="empty-with-versioning-blueprint-wizard-soy.js" 
+        	location="/templates/empty-with-versioning-blueprint-wizard.soy" />
+        <resource type="download" name="empty-with-versioning-blueprint-wizard.js" 
+			location="/js/empty-with-versioning-blueprint-wizard.js" />
+        		
+        <!-- Clinical Requirements Resources -->
+        <resource type="download" name="clin-req-wizard-soy.js" 
+        	location="/templates/clin-req-wizard.soy" />
+		<resource type="download" name="clin-req-blueprint-wizard.js" 
+			location="/js/clin-req-blueprint-wizard.js" />
+			
+		<!-- Specification Resources -->
+		<resource type="download" name="spec-wizard-soy.js" 
+        	location="/templates/spec-wizard.soy" />
+        <resource type="download" name="spec-blueprint-wizard.js" 
+			location="/js/spec-blueprint-wizard.js" />
+			
+        <dependency>com.atlassian.confluence.plugins.confluence-create-content-plugin:resources
+        </dependency>
+        <dependency>com.atlassian.confluence.plugins.confluence-create-content-plugin:space-blueprints
+        </dependency>
+        <dependency>com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar
+        </dependency>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+    </web-resource>
+
+	<!-- Empty Blueprint Template -->
+	<content-template key="empty-blueprint-content-template"
+            i18n-name-key="confluence.hierarchy.blueprint.name">
+        <description 
+        	key="confluence.hierarchy.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/empty-hierarchy-content-template.xml"/>
+    </content-template>
+    
+    <!-- Empty Blueprint With Versioning Template -->
+	<content-template key="empty-with-versioning-blueprint-content-template"
+            i18n-name-key="confluence.hierarchy.blueprint.name">
+        <description 
+        	key="confluence.hierarchy.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/empty-with-versioning-main-content-template.xml"/>
+    </content-template>
+
+	<!-- Clinical Requirement Blueprint Templates -->
+	<content-template key="clin-req-hierarchy-blueprint-content-template"
+            i18n-name-key="confluence.hierarchy.blueprint.name">
+        <description 
+        	key="confluence.hierarchy.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/clin-req-hierarchy-content-template.xml"/>
+    </content-template>
+
+     <content-template key="clin-req-hierarchy-child-getting-started-content-template"
+            i18n-name-key="confluence.clinicalreq.blueprint.template.getting-started.name">
+        <description 
+        	key="confluence.hierarchy.child.getting.started.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/clin-req-hierarchy-child-getting-started-content-template.xml"/>
+    </content-template>
+
+    <content-template key="clin-req-hierarchy-child-a-content-template"
+            i18n-name-key="confluence.clinicalreq.blueprint.template.a.name">
+        <description key="confluence.hierarchy.child.a.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/clin-req-hierarchy-child-a-content-template.xml"/>
+    </content-template>
+
+    <content-template key="clin-req-hierarchy-child-b-content-template"
+            i18n-name-key="confluence.clinicalreq.blueprint.template.b.name">
+        <description 
+        	key="confluence.hierarchy.child.b.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+             location="/templates/clin-req-hierarchy-child-b-content-template.xml"/>
+    </content-template>
+
+    <content-template key="clin-req-hierarchy-child-c-content-template"
+            i18n-name-key="confluence.clinicalreq.blueprint.template.c.name">
+        <description 
+        	key="confluence.hierarchy.child.c.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/clin-req-hierarchy-child-c-content-template.xml"/>
+    </content-template>
+   
+    <content-template key="clin-req-hierarchy-child-d-content-template"
+            i18n-name-key="confluence.clinicalreq.blueprint.template.d.name">
+        <description 
+        	key="confluence.hierarchy.child.d.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/clin-req-hierarchy-child-d-content-template.xml"/>
+    </content-template>
+    <!-- /Clinical Requirement Blueprint Templates -->
+
+	<!-- Specification Blueprint Templates -->
+	<content-template key="spec-hierarchy-blueprint-content-template"
+            i18n-name-key="confluence.samplespec.hierarchy.blueprint.name">
+        <description 
+        	key="confluence.hierarchy.blueprint.description"/>
+        <resource name="template" type="download"
+                location="/templates/spec-hierarchy-content-template.xml"/>
+    </content-template>
+	
+    <content-template key="spec-hierarchy-child-getting-started-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.getting-started.name">
+        <description 
+        	key="confluence.hierarchy.child.getting.started.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/spec-hierarchy-child-getting-started-content-template.xml"/>
+    </content-template>
+
+    <content-template key="spec-hierarchy-child-a-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.a.name">
+        <description key="confluence.hierarchy.child.a.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/spec-hierarchy-child-a-content-template.xml"/>
+    </content-template>
+
+    <content-template key="spec-hierarchy-child-b-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.b.name">
+        <description 
+        	key="confluence.hierarchy.child.b.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-b-content-template.xml"/>
+    </content-template>
+    
+    <content-template key="spec-hierarchy-child-b-uc-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.b.uc.name">
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-b-uc-content-template.xml"/>
+    </content-template>
+    
+    <content-template key="spec-hierarchy-child-uc01-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.uc01.name">
+        <description 
+            key="confluence.hierarchy.child.uc01.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-uc01-content-template.xml"/>
+    </content-template>
+
+	<content-template key="spec-hierarchy-child-b-br-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.b.br.name">
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-b-br-content-template.xml"/>
+    </content-template>
+
+    <content-template key="spec-hierarchy-child-br01-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.br01.name">
+        <description 
+            key="confluence.hierarchy.child.br01.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-br01-content-template.xml"/>
+    </content-template>
+    
+    <content-template key="spec-hierarchy-child-b-gu-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.b.gu.name">
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-b-gu-content-template.xml"/>
+    </content-template>
+
+    <content-template key="spec-hierarchy-child-gu01-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.gu01.name">
+        <description 
+            key="confluence.hierarchy.child.gu01.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+             location="/templates/spec-hierarchy-child-gu01-content-template.xml"/>
+    </content-template>
+
+    <content-template key="spec-hierarchy-child-c-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.c.name">
+        <description 
+        	key="confluence.hierarchy.child.c.blueprint.content.template.description"/>
+        <resource name="interaction-diagram" type="download" 
+        	location="/images/interaction-diagram.png"/>
+        <resource name="template" type="download"
+                location="/templates/spec-hierarchy-child-c-content-template.xml"/>
+    </content-template>
+    
+    <content-template key="spec-hierarchy-child-d-content-template"
+            i18n-name-key="confluence.samplespec.blueprint.template.d.name">
+        <description 
+        	key="confluence.hierarchy.child.d.blueprint.content.template.description"/>
+        <resource name="template" type="download"
+                location="/templates/spec-hierarchy-child-d-content-template.xml"/>
+    </content-template>
+	<!-- /Specification Blueprint Templates -->
+
+	<!-- //////////////////////////////////////////// -->
+    <!-- Blueprint Wizard                             -->
+    <!-- //////////////////////////////////////////// -->
+
+	<!-- Empty Wizard -->
+    <space-blueprint key="empty-space-blueprint" 
+    	i18n-name-key="confluence.empty.space.blueprint.name">
+        <content-template ref="empty-blueprint-content-template"/>
+         <space-creation-steps>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:restrictedUserSpaceCreationStep"/>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:watchSpaceCreationStep"/>
+        </space-creation-steps>
+        <dialog-wizard key="chi-empty-space-blueprint-wizard">
+            <dialog-page id="spaceBasicDetailsId" template-key="Infoway.Blueprints.Empty.dialogForm"
+                         title-key="confluence.empty.blueprint.dialog.choose.title"
+                         description-header-key="confluence.empty.blueprint.dialog.choose.heading"
+                         description-content-key="confluence.empty.blueprint.dialog.choose.description"/>
+        </dialog-wizard>
+    </space-blueprint>
+    
+    <!-- Empty with Versioning Wizard -->
+    <space-blueprint key="empty-with-versioning-space-blueprint" 
+    	i18n-name-key="confluence.empty.with.versioning.space.blueprint.name">
+        <content-template ref="empty-with-versioning-blueprint-content-template"/>
+         <space-creation-steps>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:restrictedUserSpaceCreationStep"/>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:watchSpaceCreationStep"/>
+        </space-creation-steps>
+        <dialog-wizard key="chi-empty-with-versioning-space-blueprint-wizard">
+            <dialog-page id="spaceBasicDetailsId" template-key="Infoway.Blueprints.Empty.dialogForm"
+                         title-key="confluence.empty.with.versioning.blueprint.dialog.choose.title"
+                         description-header-key="confluence.empty.with.versioning.blueprint.dialog.choose.heading"
+                         description-content-key="confluence.empty.with.versioning.blueprint.dialog.choose.description"/>
+        </dialog-wizard>
+    </space-blueprint>
+    
+	<!-- Clinical Requirement Wizard -->
+    <space-blueprint key="chi-clin-req-space-blueprint" 
+    	i18n-name-key="confluence.clinicalreq.space.blueprint.name">
+        <content-template ref="clin-req-hierarchy-blueprint-content-template">
+            <content-template ref="clin-req-hierarchy-child-getting-started-content-template"/>
+            <content-template ref="clin-req-hierarchy-child-a-content-template"/>
+            <content-template ref="clin-req-hierarchy-child-b-content-template"/>
+            <content-template ref="clin-req-hierarchy-child-c-content-template"/>
+            <content-template ref="clin-req-hierarchy-child-d-content-template"/>
+        </content-template>
+       <space-creation-steps>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:restrictedUserSpaceCreationStep"/>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:watchSpaceCreationStep"/>
+        </space-creation-steps>
+        <dialog-wizard key="chi-clin-req-space-blueprint-wizard">
+            <dialog-page id="spaceBasicDetailsId" template-key="Infoway.Blueprints.ClinReq.dialogForm"
+                         title-key="confluence.clinicalreq.blueprint.dialog.choose.title"
+                         description-header-key="confluence.clinicalreq.blueprint.dialog.choose.heading"
+                         description-content-key="confluence.clinicalreq.blueprint.dialog.choose.description"/>
+        </dialog-wizard>
+    </space-blueprint>
+    
+    <!-- Specification Wizard -->
+    <space-blueprint key="chi-sample-specification-blueprint" 
+    	i18n-name-key="confluence.samplespec.space.blueprint.name">
+        <content-template ref="spec-hierarchy-blueprint-content-template">
+            <content-template ref="spec-hierarchy-child-getting-started-content-template"/>
+            <content-template ref="spec-hierarchy-child-a-content-template"/>
+            <content-template ref="spec-hierarchy-child-b-content-template">
+            	<content-template ref="spec-hierarchy-child-b-uc-content-template">
+            		<content-template ref="spec-hierarchy-child-uc01-content-template"/>
+            	</content-template>
+            	<content-template ref="spec-hierarchy-child-b-br-content-template">
+            		<content-template ref="spec-hierarchy-child-br01-content-template"/> 
+            	</content-template>
+            	<!-- <content-template ref="spec-hierarchy-child-b-gu-content-template">
+            		<content-template ref="spec-hierarchy-child-gu01-content-template"/>
+            	</content-template> -->
+            </content-template>    
+            <content-template ref="spec-hierarchy-child-c-content-template"/>
+            <content-template ref="spec-hierarchy-child-d-content-template"/>
+        </content-template>
+       <space-creation-steps>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:restrictedUserSpaceCreationStep"/>
+            <space-creation-step 
+            	ref="com.atlassian.confluence.plugins.confluence-create-content-plugin:watchSpaceCreationStep"/>
+        </space-creation-steps>
+        <dialog-wizard key="chi-sample-specification-blueprint-wizard">
+            <dialog-page id="spaceBasicDetailsId" template-key="Confluence.Blueprints.Hello.dialogForm"
+                         title-key="confluence.samplespec.blueprint.dialog.choose.title"
+                         description-header-key="confluence.samplespec.blueprint.dialog.choose.heading"
+                         description-content-key="confluence.samplespec.blueprint.dialog.choose.description"/>
+        </dialog-wizard>
+    </space-blueprint>
+    
+    <!-- //////////////////////////////////////////// -->
+    <!-- Add blueprint options in Create Space Dialog -->
+    <!-- //////////////////////////////////////////// -->
+    
+    <!-- Empty Blueprint -->
+    <web-item key="chi-empty-space-blueprint-item" 
+    	i18n-name-key="confluence.empty.space.blueprint.name" section="system.create.space.dialog/content">
+        <description key="confluence.empty.blueprint.description"/>
+        <resource name="icon" type="download" 
+        	location="/images/preview.png"/>
+        <param name="blueprintKey" value="empty-space-blueprint"/>
+    </web-item>
+       
+    <!-- Empty with Versioning Blueprint -->
+    <web-item key="chi-empty-with-versioning-space-blueprint-item" 
+    	i18n-name-key="confluence.empty.with.versioning.space.blueprint.name" section="system.create.space.dialog/content">
+        <description key="confluence.empty.with.versioning.blueprint.description"/>
+        <resource name="icon" type="download" 
+        	location="/images/preview.png"/>
+        <param name="blueprintKey" value="empty-with-versioning-space-blueprint"/>
+    </web-item>
+    
+    <!-- Clinical Requirement Blueprint -->
+    <web-item key="chi-clin-req-space-blueprint-item" 
+    	i18n-name-key="confluence.clinicalreq.space.blueprint.name" section="system.create.space.dialog/content">
+        <description key="confluence.clinicalreq.blueprint.description"/>
+        <resource name="icon" type="download" 
+        	location="/images/preview.png"/>
+        <param name="blueprintKey" value="chi-clin-req-space-blueprint"/>
+    </web-item>
+    
+    <!-- Specification Blueprint -->
+    <web-item key="chi-sample-specification-blueprint-item" 
+    	i18n-name-key="confluence.samplespec.space.blueprint.name" section="system.create.space.dialog/content">
+        <description key="confluence.samplespec.blueprint.description"/>
+        <resource name="icon" type="download" 
+        	location="/images/preview.png"/>
+        <param name="blueprintKey" value="chi-sample-specification-blueprint"/>
+    </web-item>
+    
+    <!-- //////////////////////////////////////////// -->
+    <!-- User Macros                                  -->
+    <!-- //////////////////////////////////////////// -->
+    
+    <!-- user macro: show-currrent-page-title -->
+    <user-macro name='show-currrent-page-title' key='show-currrent-page-title' hasBody='false' bodyType='raw' outputType='html'>
+        <description>show-currrent-page-title</description>
+        <template><![CDATA[$content.getTitle()]]></template>
+    </user-macro>
+    
+    <!-- user macro: NoPrint -->
+    <user-macro name='noprint' key='noprint' hasBody='true' bodyType='rendered' outputType='html'>
+        <description>Hides text from printed output.</description>
+        <template><![CDATA[<div class="noprint">$body</div>]]></template>
+    </user-macro>
+   
+    <!-- user macro: load-latest-scroll-version (deprecated:  moved to global.js) -->
+    <user-macro name='load-latest-scroll-version' key='load-latest-scroll-version' hasBody='false' bodyType='raw' outputType='html'>
+        <description>load-latest-scroll-version</description>
+        <template><![CDATA[]]></template>
+    </user-macro>
+    
+    <!-- user macro: prev-next-buttons (deprecated) -->
+   <!--  <user-macro name='prev-next-buttons' key='prev-next-buttons' hasBody='false' bodyType='raw' outputType='html'>
+        <description>prev and next buttons (deprecated)</description>
+        <template><![CDATA[]]></template>
+    </user-macro> -->
+    
+
+</atlassian-plugin>

@@ -1,0 +1,196 @@
+<style>
+span#clear-input {
+	display: inline-block; 
+	position: absolute; 
+	right: 8px; 
+	top: 1px; 
+	text-align: center; 
+	font-size: 10px; 
+	font-family: monospace; 
+	border-radius: 10px; 
+	-webkit-border-radius: 10px; 
+	cursor: pointer; 
+	color: #707070;
+}
+div#aui-message-bar {
+	position: absolute; 
+	top: 20px; 
+	left: 20px; 
+	z-index: 10;
+}
+.button-wrapper {
+    text-align: center;
+}
+</style>
+<div class="button-wrapper">
+    <button id="space-user-manager-dialog-button" class="aui-button"><span class="aui-icon aui-icon-small aui-iconfont-group"></span> Manage Users</button>
+</div>
+
+
+<script>
+AJS.toInit(function(){
+	var oldUserToRoleJSON = {
+	#foreach ($user in $userToRoleMap.keySet())
+		"$user":"$userToRoleMap.get($user)",
+	#end
+	};
+	
+	var updatedUserToRoleJSON = {};
+	// Standard sizes are 400, 600, 800 and 960 pixels wide
+	var dialog = new AJS.Dialog({
+    	width: 800, 
+    	height: 500, 
+    	id: "space-user-manager-dialog-button", 
+    	closeOnOutsideClick: true
+	});
+
+	// PAGE 0 (first page)
+	// adds header for first page
+	dialog.addHeader("Manage Users");
+
+	// add panel 1
+	dialog.addPanel("Panel 1",
+	"<div id='aui-message-bar'></div>"
+	+ "<div class='field-group'><form class='aui'><label for='search-bar-input'><span class='aui-icon aui-icon-small aui-iconfont-search'></span></label> "
+	+ "<span style='position: relative; width: auto;'><input class='text long-field' type='text' id='search-bar-input' name='search-bar-input' title='Search' placeholder='Search user' autocomplete='off'>"
+	+ "<span id='clear-input' class='aui-icon aui-icon-small aui-iconfont-close-dialog'></span>"
+	+ "</span>"
+	+ "<div class='checkbox' align='right' style='display: inline-block; margin-left: 10px;'>"
+	+	 "<label for='showAssignedUsers'>Only show assigned users</label>"
+    +    "<input class='checkbox' type='checkbox' name='showAssignedUsers' id='showAssignedUsers'>"
+    + "</div>"
+	+ "</div></form>"
+	+ "<table id='manage-user-table' class='aui aui-table-sortable'>"
+	+ "<thead><tr><th>Full Name</th><th>User ID</th><th class='aui-table-column-unsortable'>Role</th></tr></thead><tbody>"
+	#foreach ($user in $usernameList) 
+		#set ($userDropdownWithHtml = $userToDropdownMap.get($user))
+	+ "<tr><td class='user-full-name-column'>$userAccessor.getUserByName($user).getFullName()</td><td class='username-column'>$user</td><td class='role-column'>$userDropdownWithHtml</td></tr>"
+	#end
+	 + "</tbody></table>", "panel-body");
+	// You can remove padding with:
+	// dialog.get("panel:0").setPadding(0);
+	AJS.tablessortable.setTableSortable(AJS.$("#manage-user-table"));
+	var servletUrl = "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/servlet/infoway/manageusers";
+	
+	#*	 
+		- the following #set escapes the dollar sign because the line "AJS.$.ajax" 
+				gets read as a directive by velocity and throws and error
+		- fix suggestion found here: http://stackoverflow.com/questions/15547671/escaping-the-dollar-sign-in-velocity-using-backslash-not-working
+	*#
+	#set ( $d = "$") 
+	
+	dialog.addButton("Save", function (dialog) {
+		//console.log(oldUserToRoleJSON);
+		AJS.${d}.ajax({
+    		url: servletUrl,
+    		method: "GET",
+    		data: {
+    			spaceKey: "$spaceGroupPrefix",
+    			// oldData: JSON.stringify(oldUserToRoleJSON),
+      			updateData: JSON.stringify(updatedUserToRoleJSON)
+    		},
+    		success: function(data) {
+    			AJS.messages.success("#aui-message-bar", {
+   					title:"Group Changes Successful!",
+   					body: "<p> The page is now reloading...</p>",
+   					fadeout: true,
+   					delay: 300,
+   					duration: 2000
+				});
+				//alert('Group changes successful. Re-loading page...');
+				location.reload();
+    		},
+    		error: function(data) {
+    			AJS.messages.error("#aui-message-bar", {
+   					title:"Group Changes Failed",
+   					closeable: true,
+   					fadeout: true
+				});
+        		//alert('Group changes failed.');
+    		}
+		});
+	}, "save-group-changes-button");
+
+	
+
+	dialog.addLink("Cancel", function (dialog) {
+	// reset dropdown values back to there defaults...
+	// more info here:    http://stackoverflow.com/questions/16913094/reset-select-value-to-default
+	    dialog.hide();
+	}, "#");
+
+	var tableRows = AJS.$('#manage-user-table tbody tr');
+	var searchBar =  AJS.$('#search-bar-input');
+	var assignedUserCheck = AJS.$("#showAssignedUsers");
+	var isOnlyAssignedUsers = assignedUserCheck.is(':checked');
+	var saveGroupChangesButton = AJS.$(".save-group-changes-button");
+	//disable initially
+	saveGroupChangesButton.prop('disabled', true);
+
+	//enable the save button when a change is made to a user's role
+	AJS.$("select.role-select").one("change", function() {
+		saveGroupChangesButton.prop('disabled', false);
+	});
+
+	AJS.$("#space-user-manager-dialog-button").click(function() {
+	    // PREPARE FOR DISPLAY
+    	// start first page, first panel
+    	dialog.gotoPage(0);
+    	dialog.gotoPanel(0);
+    	dialog.show();
+	});
+	
+	AJS.$("select.role-select").change(function() {
+		var thisKey = AJS.$(this).attr("data-username");
+		var thisRole = AJS.$("option:selected", this).text();
+		updatedUserToRoleJSON[thisKey] = thisRole;
+		if (isOnlyAssignedUsers) {
+			tableRows.trigger('updateRowsEvent');
+		}
+		// console.log(updatedUserToRoleJSON);
+	});
+	
+	assignedUserCheck.change(function() {
+		isOnlyAssignedUsers = AJS.$(this).is(':checked');
+		// console.log(isOnlyAssignedUsers);
+		tableRows.trigger('updateRowsEvent');
+	});
+	
+    searchBar.on('input', function() {
+    	tableRows.trigger('updateRowsEvent');
+    });
+
+    //handler for clear button in search bar
+    AJS.$('#clear-input').click(function() {
+    	searchBar.val('');
+    	tableRows.trigger('updateRowsEvent');
+    	searchBar.focus();
+    });
+    
+	tableRows.on('updateRowsEvent', function() {
+		var val = AJS.${d}.trim(searchBar.val()).replace(/ +/g, ' ').toLowerCase();
+        var visibleRows = AJS.$(this);
+        
+        visibleRows = visibleRows.filter(function() {
+        	// console.log('searchbar filter');
+         	var fullName = AJS.$(this).children(".user-full-name-column");
+         	var username = AJS.$(this).children(".username-column");
+         	var text = fullName.text().replace(/\s+/g, ' ').toLowerCase() + username.text().replace(/\s+/g, ' ').toLowerCase();
+            return (text.indexOf(val) >= 0);
+        });
+        
+        visibleRows = visibleRows.filter(function() {
+        	//console.log('assigned user filter');
+        	if (isOnlyAssignedUsers) {
+        		var role = AJS.$(this).find("select.role-select :selected").text();
+        		// console.log(role);
+        		return (role !== "none");
+        	} else {
+        		return true;
+        	}
+        });
+        AJS.$(this).show(); 
+        AJS.$(this).not(visibleRows).hide();
+	}); 
+});
+</script>

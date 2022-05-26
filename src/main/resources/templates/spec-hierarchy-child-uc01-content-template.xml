@@ -1,0 +1,116 @@
+<p>
+  <ac:placeholder>NOTE: Please update the page title with an unique id with the prefix "UC - ".  It will be used as the Use Case ID.</ac:placeholder>
+</p>
+<p>
+  <ac:placeholder>NOTE: Tips - You can add additional Label(s) to this page to categorize this use case.</ac:placeholder>
+</p>
+<ac:structured-macro ac:name="details">
+  <ac:rich-text-body>
+    <table>
+      <tbody>
+        <tr>
+          <th>Description</th>
+          <td>
+            A healthcare provider accesses a summary view of a patient’s medication history
+          </td>
+        </tr>
+        <tr>
+          <th>Actors</th>
+          <td>
+            Healthcare Provider, Patient
+          </td>
+        </tr>
+        <tr>
+          <th>Triggers</th>
+          <td>
+            The healthcare provides identifies a clinical need to access a patient’s medication history. This could happen as part of some other process (e.g. e-prescribing) or as a stand-alone process.
+          </td>
+        </tr>
+        <tr>
+          <th>Pre-Conditions</th>
+          <td>
+            The healthcare provider has been authenticated and has searched for and selected a patient from the Client Registry.
+          </td>
+        </tr>
+        <tr>
+          <th>Post-Conditions</th>
+          <td>
+            The healthcare provider is able to view a summary of the patient’s medication history within their clinical system.
+          </td>
+        </tr>
+        <tr>
+          <th>Assumptions</th>
+          <td>
+            <ol>
+		      <li>The DIS (Drug Information System) will keep audit records for each medication profile query made.</li>
+		      <li>Prescriptions returned by the DIS will include: Prescriptions ordered but not dispensed; Prescriptions ordered and partially or completely dispensed; Prescriptions dispensed with no order (Inferred prescriptions); and Other (i.e. non-prescription, OTC) medications Retracted records do not come back in query responses.</li>
+		      <li>The DIS currently maintains 25 months of medication history profile information online. Access to information that is archived may be available via a manual process by contacting the Jurisdictional help desk.</li>
+		    </ol>
+          </td>
+        </tr>
+        <tr>
+          <th>Business Rules</th>
+          <td>
+            <p>The following business rules apply to this use case as a whole:</p>
+            <p>
+              <ac:structured-macro ac:name="chi-popover">
+          <ac:parameter ac:name="ID">BR-01</ac:parameter>
+        </ac:structured-macro>              
+            </p>
+            <p>Business rules that apply to a specific step in this use case are listed in the Main Flow and Alternate Flow tables.</p>
+          </td>
+        </tr>
+        <tr>
+          <th>Main Flow</th>
+          <td>
+             <table>
+      <tbody>
+        <tr>
+          <th>Step</th>
+          <th>Actor</th>
+          <th>Description</th>
+          <th>Business Rules</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>doctor</td>
+          <td>The doctor identifies a clinical need to access a patient’s medication history</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>doctor</td>
+          <td>The doctor enters the necessary information within their clinical system to request the medication history</td>
+          <td> </td>
+        </tr>
+      </tbody>
+	    </table>
+	          </td>
+	        </tr>
+	        <tr>
+	          <th>Alternate Flow</th>
+	          <td>
+	           <strong>No Medication History Available</strong>
+	           <table>
+	      <tbody>
+	        <tr>
+	          <th>Step</th>
+	          <th>Actor</th>
+	          <th>Description</th>
+	          <th>Business Rules</th>
+	        </tr>
+	        <tr>
+	          <td>1</td>
+	          <td> </td>
+	          <td> </td>
+	          <td> </td>
+	        </tr>
+	      </tbody>
+	    </table>           
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ac:rich-text-body>
+</ac:structured-macro>
+

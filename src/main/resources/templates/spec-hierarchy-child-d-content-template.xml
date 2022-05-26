@@ -1,0 +1,893 @@
+<ac:layout>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <p>
+        <strong>On this Page:</strong>
+      </p>
+      <p>
+        <ac:structured-macro ac:name="toc"/>
+      </p>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <h1>
+        <strong>API</strong>
+      </h1>
+      <p>
+        <span style="line-height: 1.4285715;">Developers can use Message Builder API which fosters quick and easy creation, population, validation, and access to HL7v3 requests and responses that are conformed to the jurisdictional specification.  Further details can be found in the </span>
+        <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder" style="line-height: 1.4285715;" title="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder">Message Builder section on InfoCentral</a>
+        <span style="line-height: 1.4285715;">.</span>
+      </p>
+      <h2>
+        <strong style="font-size: 20.0px;line-height: 1.5;">Setup</strong>
+      </h2>
+      <p>
+        <span>Developers will need to first setup Message Builder in their development environment by following the instructions in the </span>
+        <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/4_Quickstart" title="Quickstart">Message Builder Quick Start Guide</a>
+        <span>. Please goto the </span>
+        <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/3_Installation" title="Installation">Message Builder download page</a>
+        <span>, select "SK CeRx V01R04.2", and follow the instructions on the page to download Message Builder.</span>
+      </p>
+      <h2>
+        <span>
+          <strong>Resources</strong>
+        </span>
+      </h2>
+      <ul>
+        <li>
+          <span>
+            <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/Demonstration_Video" title="3_Tools_and_solutions/Message_Builder/Demonstration_Video">Message Builder Demonstration Video</a>
+          </span>: This <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/Demonstration_Video" title="Demonstration Video">video</a> provides developers with more in-depth knowledge of Message Builder. It includes a brief demo of the Message Builder developer's runtime library in action in Eclipse IDE for Java.</li>
+        <li>
+          <span>
+            <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/User_Guide">User Guide</a>
+          </span>: For both basic and advanced Message Builder concepts, visit the <a href="https://infocentral.infoway-inforoute.ca/3_Tools_and_solutions/Message_Builder/User_Guide">User Guide</a>.</li>
+        <li>
+          <span>
+            <a class="link-https" href="https://www.infoway-inforoute.ca/index.php/programs-services/standards-collaborative/standards-education" title="https://www.infoway-inforoute.ca/index.php/programs-services/standards-collaborative/standards-education">Standards Education</a>
+          </span>: The <em>Infoway</em> Standards Collaborative offers pan-Canadian standards-based education solutions in messaging (HL7), terminology (SNOMED CT©) and vocabulary (such as LOINC<span>®</span> and PCLOCD). For further information, visit the education site at: <span class="nolink">
+            <a href="https://www.infoway-inforoute.ca/index.php/programs-services/standards-collaborative/standards-education">https://www.infoway-inforoute.ca/index.php/programs-services/standards-collaborative/standards-education</a>
+          </span>
+        </li>
+      </ul>
+      <p>
+        <span>
+          <br/>
+        </span>
+      </p>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <h1>
+        <strong>Sample Code</strong>
+      </h1>
+      <p>The following sample code uses Message Builder, which you can learn more about in the <ac:link>
+          <ac:plain-text-link-body><![CDATA[previous section]]></ac:plain-text-link-body>
+        </ac:link>.</p>
+      <h2>
+        <strong>Medication Profile Summary Query (PORX_IN060390CA)</strong>
+      </h2>
+      <ac:structured-macro ac:name="tip">
+        <ac:parameter ac:name="title">Tips</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(60,118,61);">You can use </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/">HL7 Explorer</a>
+            <span style="color: rgb(60,118,61);"> to learn more about the </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/interaction.html?PORX_IN060390CA">message</a>
+            <span style="color: rgb(60,118,61);">, </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=datatype">datatype</a>
+            <span style="color: rgb(60,118,61);">, and </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=vocab">vocabulary</a>
+            <span style="color: rgb(60,118,61);">.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+      <ac:structured-macro ac:name="code">
+        <ac:parameter ac:name="title">PORX_IN060390CA</ac:parameter>
+       
+        <ac:parameter ac:name="linenumbers">true</ac:parameter>
+        <ac:parameter ac:name="language">java</ac:parameter>
+        <ac:parameter ac:name="collapse">true</ac:parameter>
+        <ac:plain-text-body><![CDATA[public InteractionBean createRequestInteraction() {
+  MedicationProfileSummaryQueryBean messageBean = new MedicationProfileSummaryQueryBean();
+
+  this.setTransportWrapperValues(messageBean);
+ 
+  messageBean.setControlActProcess(this.createControlActProcess());
+
+  return messageBean;
+ }
+
+ protected void setTransportWrapperValues(HL7Message_1Bean<?> messageBean) {
+  // Fill in transport wrapper portion
+  messageBean.setId(new Identifier("2.16.124.9.101.1.8.1", UUID.randomUUID().toString().substring(0, 16)));
+  messageBean.setCreationTime(new Date());
+  messageBean.setProcessingCode(DEBUGGING);
+  messageBean.setAcceptAckCode(AcknowledgementCondition.ALWAYS);
+
+  // Set Receiver
+  ReceiverBean receiver = new ReceiverBean(); 
+  receiver.setDeviceId(new Identifier("2.16.840.1.113883.3.144.1.8.1"));
+  receiver.setTelecom(new TelecommunicationAddress(URLScheme.HTTPS, "pipmsgcerx.uat.shin.sk.ca/PIN_CeRx_Web/cerx"));
+  receiver.setDeviceAsAgentRepresentedOrganizationId(null);
+  messageBean.setReceiver(receiver);
+ 
+  // Set Sender
+  SenderBean sender = new SenderBean();
+  sender.setDeviceId(new Identifier("2.16.840.1.113883.3.1293.100.10.1", "Infoway01"));
+  sender.setDeviceManufacturerModelName("1.0");
+  sender.setDeviceSoftwareName("EMRI-POS");
+  TelecommunicationAddress tel = new TelecommunicationAddress();
+  tel.setAddress("emri.infoway-inforoute.ca/emri-demo/pos/sblack"); 
+  tel.setUrlScheme(URLScheme.HTTPS);
+  sender.setTelecom(tel);
+  sender.setDeviceAsAgentRepresentedOrganizationId(null);
+  Identifier sendingFacilityIdentifier = new Identifier("2.16.840.1.113883.4.67", "CPN.00020636.SK.PRS");
+  sender.setDeviceAsLocatedEntityLocationId(sendingFacilityIdentifier);
+  messageBean.setSender(sender);
+ }
+
+ private TriggerEventBean<GenericQueryParametersBean> createControlActProcess() {
+  TriggerEventBean<GenericQueryParametersBean> cae = new TriggerEventBean<GenericQueryParametersBean>();
+  cae.setId(new Identifier("c0948040-2e82-11e2-81c1-0800200c9a66"));
+  cae.setCode(HL7TriggerEventCode.MEDICATION_PROFILE_SUMMARY_QUERY);
+  cae.setAuthor(this.createAuthor1ForCerx());
+  cae.setDataEntererAssignedPerson(this.createDataEntererAssignedPerson());
+  cae.setDataEntryLocationServiceDeliveryLocation(this.createDataEntryLocation());
+  cae.setLocation(createLocation());
+  cae.setQueryByParameter(createQueryByParameter());
+  return cae;
+ }
+
+ private ServiceLocationBean createDataEntryLocation() {
+  ServiceLocationBean dataEntryLocation = new ServiceLocationBean();
+  dataEntryLocation.setId(new Identifier("1.2.3.4", "II value"));
+  dataEntryLocation.setAddr(createAddress());
+  dataEntryLocation.setLocationName("Data Entry Centre");
+  return dataEntryLocation;
+ }
+
+ private PostalAddress createAddress() {
+  PostalAddress addr = new PostalAddress();
+  PostalAddressPart part = new PostalAddressPart();
+  part.setType(PostalAddressPartType.ADDRESS_LINE);
+  part.setValue("146 Yonge Street");
+  addr.addPostalAddressPart(part);
+  return addr;
+ }
+
+ protected RecordedAtBean createLocation() {
+  ServiceLocationBean serviceDeliveryLocation = new ServiceLocationBean();
+  serviceDeliveryLocation.setId(new Identifier(
+    "2.16.840.1.113883.4.67", "CPN.00020636.SK.PRS"));
+  serviceDeliveryLocation.setLocationName("Infoway Physician");
+ 
+  RecordedAtBean location = new RecordedAtBean();
+  location.setServiceDeliveryLocation(serviceDeliveryLocation);
+ 
+  return location;
+ }
+
+ private ProviderBean createDataEntererAssignedPerson() {
+  ProviderBean assignedPerson = new ProviderBean();
+  assignedPerson.setId(new Identifier("5.6.7", "MY CUSTOM II"));
+  assignedPerson.setCode(CodeResolverRegistry.lookup(HealthcareProviderRoleType.class,"_HealthcareProviderR", "2.16.124.101.1.277"));
+  assignedPerson.setRepresentedPersonName(PersonName.createFirstNameLastName("Jack", "Simpson"));
+  assignedPerson.setRepresentedPersonAsLicensedEntityId(new Identifier("1.2.3.4", "II value"));
+  return assignedPerson;
+ }
+
+ private QueryDefinitionBean<GenericQueryParametersBean> createQueryByParameter() {
+  QueryDefinitionBean<GenericQueryParametersBean> queryByParameter = new QueryDefinitionBean<GenericQueryParametersBean>();
+  queryByParameter.setQueryId(new Identifier("2.16.124.9.101.1.8.3", "00001"));
+  queryByParameter.setInitialQuantity(1); 
+  queryByParameter.setParameterList(createParameterList());
+  return queryByParameter;
+ }
+
+ private GenericQueryParametersBean createParameterList() {
+  GenericQueryParametersBean parameterList = new GenericQueryParametersBean();   
+  parameterList.setMostRecentByDrugIndicatorValue(false);
+  parameterList.setIssueFilterCodeValue(IssueFilterCode.ALL);  
+  // BR - 25  
+  parameterList.setPatientNameValue(PersonName.createFirstNameLastName("Allison", "Johnson"));
+  String HEALTH_SERVICE_NUMBER_OID = "INSERT YOUR OID HERE";
+  parameterList.setPatientIDValue(new Identifier(HEALTH_SERVICE_NUMBER_OID, "140123008"));
+  java.util.Date birthDate = (new GregorianCalendar(2007,java.util.Calendar.MARCH, 19)).getTime();
+  parameterList.setPatientBirthDateValue(birthDate);
+  parameterList.setPatientGenderValue(AdministrativeGender.FEMALE);  
+  return parameterList;
+ }
+ ]]></ac:plain-text-body>
+      </ac:structured-macro>
+      <h2>
+        <strong>Medication Profile Summary Query Response (PORX_IN060400CA)</strong>
+      </h2>
+      <ac:structured-macro ac:name="tip">
+        <ac:parameter ac:name="title">Tips</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(60,118,61);">You can use </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/">HL7 Explorer</a>
+            <span style="color: rgb(60,118,61);"> to learn more about the </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/interaction.html?PORX_IN060390CA">message</a>
+            <span style="color: rgb(60,118,61);">, </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=datatype">datatype</a>
+            <span style="color: rgb(60,118,61);">, and </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=vocab">vocabulary</a>
+            <span style="color: rgb(60,118,61);">.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+      <ac:structured-macro ac:name="tip">
+        <ac:parameter ac:name="title">Tips</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(60,118,61);">The sample code below is mapped to the Business Rules with the comment "// BR.#". This allows the developer to easily determine the necessary code for a specific business rule.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+      <ac:structured-macro ac:name="code">
+        <ac:parameter ac:name="title">PORX_IN060400CA</ac:parameter>
+       
+        <ac:parameter ac:name="linenumbers">true</ac:parameter>
+        <ac:parameter ac:name="language">java</ac:parameter>
+        <ac:parameter ac:name="collapse">true</ac:parameter>
+        <ac:plain-text-body><![CDATA[protected void processResponseInteraction(InteractionBean interactionBean) {
+  MedicationProfileSummaryQueryResponseBean response = (MedicationProfileSummaryQueryResponseBean) interactionBean;
+
+  TriggerEventBean<MedicationRecord, GenericQueryParametersBean> cae = response.getControlActProcess();
+
+  // BR - 9
+  cae.getReasonCode();
+
+  for (RefersToBean<MedicationRecord> subject: cae.getSubject()) {
+   CombinedMedicationRequest_1Bean medication = (CombinedMedicationRequest_1Bean) subject.getAct();
+
+   // BR - 20
+   medication.getSubjectPatient().getPatientPersonName();   
+   medication.getSubjectPatient().getPatientPersonBirthTime();
+   medication.getSubjectPatient().getPatientPersonAdministrativeGenderCode();
+ 
+   // BR - 12
+   medication.getAuthor().getAssignedPerson().getRepresentedPersonName();
+   medication.getAuthor().getAssignedPerson().getRepresentedPersonAsLicensedEntityId();
+ 
+   // BR - 13  
+   medication.getComponent1AdministrationInstructionsText();
+ 
+   // BR - 08  
+   medication.getComponent2().getSupplyRequest().getLocation().getServiceDeliveryLocation();
+
+   // BR - 10  
+   medication.getDirectTargetMedication().getPlayerName();
+ 
+   // BR - 17  
+   medication.getFulfillment1SupplyEventFutureSummary().getQuantity().getQuantity();
+ 
+   // BR - 16  
+   medication.getFulfillment3SupplyEventLastSummary().getEffectiveTime().getHigh();
+ 
+   // BR - 15  
+   medication.getFulfillment3SupplyEventLastSummary().getQuantity().getUnit();
+ 
+   // BR - 14 BR - 16  
+   medication.getFulfillment3SupplyEventLastSummary().getQuantity().getQuantity();
+ 
+   // BR - 11  
+   medication.getStatusCode();
+ 
+   // BR - 19  
+   medication.getSubjectOf1AnnotationIndicator();
+ 
+   // BR - 18  
+   medication.getSubjectOf2DetectedIssueIndicator();
+  }
+ }
+ ]]></ac:plain-text-body>
+      </ac:structured-macro>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+      <h1>
+        <strong>Sample Messages</strong>
+      </h1>
+      <h2>
+        <strong>Medication Profile Summary Query (PORX_IN060390CA)</strong>
+      </h2>
+      <ac:structured-macro ac:name="tip">
+        <ac:parameter ac:name="title">Tips</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(60,118,61);">You can use </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/">HL7 Explorer</a>
+            <span style="color: rgb(60,118,61);"> to learn more about the </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/interaction.html?PORX_IN060390CA">message</a>
+            <span style="color: rgb(60,118,61);">, </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=datatype">datatype</a>
+            <span style="color: rgb(60,118,61);">, and </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=vocab">vocabulary</a>
+            <span style="color: rgb(60,118,61);">.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+      <ac:structured-macro ac:name="code">
+        <ac:parameter ac:name="title">PORX_IN060390CA</ac:parameter>
+       
+        <ac:parameter ac:name="linenumbers">true</ac:parameter>
+        <ac:parameter ac:name="language">xml</ac:parameter>
+        <ac:parameter ac:name="collapse">true</ac:parameter>
+        <ac:plain-text-body><![CDATA[<PORX_IN060390CA xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ITSVersion="XML_1.0">
+ <id extension="6fc0c06d-f0e0-4b" root="2.16.124.9.101.1.8.1"/>
+ <creationTime value="20111121000000"/>
+ <versionCode code="V3-2005-12"/>
+ <interactionId extension="PORX_IN060390CA" root="2.16.840.1.113883.1.6"/>
+ <processingCode code="D"/>
+ <processingModeCode code="T"/>
+ <acceptAckCode code="AL"/>
+ <receiver typeCode="RCV">
+  <telecom value="https://pipmsgcerx.uat.shin.sk.ca/PIN_CeRx_Web/cerx"/>
+  <device classCode="DEV" determinerCode="INSTANCE">
+   <id root="2.16.840.1.113883.3.144.1.8.1"/>
+  </device>
+ </receiver>
+ <sender typeCode="SND">
+  <telecom value="https://emri.infoway-inforoute.ca/em...emo/pos/sblack"/>
+  <device classCode="DEV" determinerCode="INSTANCE">
+   <id extension="Infoway01" root="2.16.840.1.113883.3.1293.100.10.1"/>
+   <manufacturerModelName>1.0</manufacturerModelName>
+   <softwareName>EMRI-POS</softwareName>
+   <asLocatedEntity classCode="LOCE">
+    <location classCode="PLC" determinerCode="INSTANCE">
+     <id extension="CPN.00020636.SK.PRS" root="2.16.840.1.113883.4.67"/>
+    </location>
+   </asLocatedEntity>
+  </device>
+ </sender>
+ <controlActEvent classCode="CACT" moodCode="EVN">
+  <id root="c0948040-2e82-11e2-81c1-0800200c9a66"/>
+  <code code="PORX_TE060300UV" codeSystem="2.16.840.1.113883.1.18"/>
+  <statusCode code="completed"/>
+  <author typeCode="AUT" contextControlCode="AP">
+   <time value="20110601000000"/>
+   <assignedPerson classCode="ASSIGNED">
+    <id extension="CPN.00020627.SK.PRS" root="2.16.840.1.113883.4.67"/>
+    <representedPerson classCode="PSN" determinerCode="INSTANCE">
+     <name use="L">
+      <given>Bob</given>
+      <family>McAnulty</family>
+     </name>
+     <asLicensedEntity classCode="LIC">
+      <id extension="CPN.00020627.SK.PRS" root="2.16.840.1.113883.4.67"/>
+     </asLicensedEntity>
+    </representedPerson>
+   </assignedPerson>
+  </author>
+  <dataEnterer typeCode="ENT" contextControlCode="AP">
+   <assignedPerson classCode="ASSIGNED">
+    <id extension="MY CUSTOM II" root="5.6.7"/>
+    <code code="_HealthcareProviderR" codeSystem="2.16.124.101.1.277"/>
+    <representedPerson classCode="PSN" determinerCode="INSTANCE">
+     <name use="L">
+      <given>Jack</given>
+      <family>Simpson</family>
+     </name>
+     <asLicensedEntity classCode="LIC">
+      <id extension="II value" root="1.2.3.4"/>
+     </asLicensedEntity>
+    </representedPerson>
+   </assignedPerson>
+  </dataEnterer>
+  <dataEntryLocation typeCode="ELOC" contextControlCode="AP">
+   <serviceDeliveryLocation classCode="SDLOC">
+    <id extension="II value" root="1.2.3.4"/>
+    <addr use="WP">146 Yonge Street<city>Toronto</city>
+     <state code="ON">ON</state>
+     <postalCode>H0H0H0</postalCode>
+     <country code="CA">Canada</country>c/o general delivery</addr>
+    <telecom specializationType="TEL.PHONE" value="tel:4167766554" xsi:type="TEL"/>
+    <location classCode="PLC" determinerCode="INSTANCE">
+     <name>Data Entry Centre</name>
+    </location>
+   </serviceDeliveryLocation>
+  </dataEntryLocation>
+  <location typeCode="LOC" contextControlCode="AP">
+   <serviceDeliveryLocation classCode="SDLOC">
+    <id extension="CPN.00020636.SK.PRS" root="2.16.840.1.113883.4.67"/>
+    <addr nullFlavor="NI"/>
+    <telecom nullFlavor="NI"/>
+    <location classCode="PLC" determinerCode="INSTANCE">
+     <name>Infoway Physician</name>
+    </location>
+   </serviceDeliveryLocation>
+  </location>
+  <queryByParameter>
+   <queryId extension="00001" root="2.16.124.9.101.1.8.3"/>
+   <initialQuantity value="1"/>
+   <parameterList>
+    <administrationEffectivePeriod>
+     <value>
+      <low value="19770522"/>
+      <high value="20130914"/>
+     </value>
+    </administrationEffectivePeriod>
+    <amendedInTimeRange>
+     <value>
+      <low value="19770522000000"/>
+      <high value="20140514000000"/>
+     </value>
+    </amendedInTimeRange>
+    <issueFilterCode>
+     <value code="A" codeSystem="2.16.840.1.113883.5.1096"/>
+    </issueFilterCode>
+    <mostRecentByDrugIndicator>
+     <value value="false"/>
+    </mostRecentByDrugIndicator>
+    <patientBirthDate>
+     <value value="20070319"/>
+    </patientBirthDate>
+    <patientGender>
+     <value code="F" codeSystem="2.16.840.1.113883.5.1"/>
+    </patientGender>
+    <patientID>
+     <value extension="140123008" root="INSERT YOUR OID HERE"/>
+    </patientID>
+    <patientName>
+     <value use="L">
+      <given>Allison</given>
+      <family>Johnson</family>
+     </value>
+    </patientName>
+   </parameterList>
+  </queryByParameter>
+ </controlActEvent>
+</PORX_IN060390CA>]]></ac:plain-text-body>
+      </ac:structured-macro>
+      <h2>
+        <strong>Medication Profile Summary Query Response (PORX_IN060400CA)</strong>
+      </h2>
+      <ac:structured-macro ac:name="tip">
+        <ac:parameter ac:name="title">Tips</ac:parameter>
+        <ac:rich-text-body>
+          <p>
+            <span style="color: rgb(60,118,61);">You can use </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/">HL7 Explorer</a>
+            <span style="color: rgb(60,118,61);"> to learn more about the </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/interaction.html?PORX_IN060390CA">message</a>
+            <span style="color: rgb(60,118,61);">, </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=datatype">datatype</a>
+            <span style="color: rgb(60,118,61);">, and </span>
+            <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/search.html?type=vocab">vocabulary</a>
+            <span style="color: rgb(60,118,61);">.</span>
+          </p>
+        </ac:rich-text-body>
+      </ac:structured-macro>
+      <ac:structured-macro ac:name="code">
+        <ac:parameter ac:name="title">PORX_IN060400CA</ac:parameter>
+       
+        <ac:parameter ac:name="linenumbers">true</ac:parameter>
+        <ac:parameter ac:name="language">xml</ac:parameter>
+        <ac:parameter ac:name="collapse">true</ac:parameter>
+        <ac:plain-text-body><![CDATA[<PORX_IN060400CA xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ITSVersion="XML_1.0">
+ <id extension="6ad0c06e-e0f0-4c" root="2.16.124.9.101.1.8.1"/>
+ <creationTime value="20111121000045"/>
+ <versionCode code="V3-2008N"/>
+ <interactionId extension="PORX_IN060400CA" root="2.16.840.1.113883.1.6"/>
+ <profileId extension="II value" root="1.2.3.4"/>
+ <processingCode code="D"/>
+ <processingModeCode code="T"/>
+ <acceptAckCode code="AL"/>
+ <receiver typeCode="RCV">
+  <telecom value="https://emri.infoway-inforoute.ca/em...emo/pos/sblack"/>
+  <device classCode="DEV" determinerCode="INSTANCE">
+   <id extension="Infoway01" root="2.16.840.1.113883.3.1293.100.10.1"/>
+  </device>
+ </receiver>
+ <sender typeCode="SND">
+  <telecom value="https://pipmsgcerx.uat.shin.sk.ca/PIN_CeRx_Web/cerx"/>
+  <device classCode="DEV" determinerCode="INSTANCE">
+   <id root="2.16.840.1.113883.3.144.1.8.1"/>
+   <existenceTime>
+    <low value="20140327"/>
+   </existenceTime>
+  </device>
+ </sender>
+ <acknowledgement>
+  <typeCode code="AA"/>
+  <targetMessage>
+   <id extension="MY CUSTOM II" root="5.6.7"/>
+  </targetMessage>
+ </acknowledgement>
+ <controlActEvent classCode="CACT" moodCode="EVN">
+  <id extension="MY CUSTOM II" root="5.6.7"/>
+  <code code="PORX_TE033040" codeSystem="2.16.840.1.113883.1.11.19427"/>
+  <statusCode code="completed"/>
+  <subject typeCode="SUBJ" contextConductionInd="false">
+   <!-- INFO: Selected option combinedMedicationRequest/PORX_MT060190CA.CombinedMedicationRequest from choice PORX_MT060190CA.MedicationRecord -->
+   <combinedMedicationRequest classCode="SBADM" moodCode="RQO">
+    <id extension="MY CUSTOM II" root="5.6.7"/>
+    <code code="DRUG" codeSystem="2.16.840.1.113883.5.4"/>
+    <statusCode code="ACTIVE"/>
+    <directTarget typeCode="DIR" contextControlCode="OP">
+     <medication classCode="MED">
+      <player classCode="MMAT" determinerCode="KIND">
+       <code code="00628158" codeSystem="2.16.840.1.113883.5.1105"/>
+       <name>APO-AMOXI PWR FOR SUSP 250MG/5ML </name>
+       <asManufacturedProduct classCode="MANU">
+        <manufacturer classCode="ORG" determinerCode="INSTANCE">
+         <name>APOTEX INCORPORATED</name>
+        </manufacturer>
+       </asManufacturedProduct>
+       <asContent classCode="CONT">
+        <quantity unit="ml" value="150"/>
+       </asContent>
+       <ingredient classCode="INGR" negationInd="true">
+        <quantity unit="mg" value="7500"/>
+        <ingredient classCode="MMAT" determinerCode="KIND">
+         <code code="FDBIngredientCode" codeSystem="2.16.840.1.113883.6.288"/>
+         <name>amoxicillin</name>
+        </ingredient>
+       </ingredient>
+      </player>
+     </medication>
+    </directTarget>
+    <subject typeCode="SBJ" contextControlCode="OP">
+     <patient classCode="PAT">
+      <id extension="MY CUSTOM II" root="5.6.7"/>
+      <addr use="H">146 Yonge Street<city>Toronto</city>
+       <state code="ON">ON</state>
+       <postalCode>H0H0H0</postalCode>
+       <country code="Canada">Canada</country>c/o general delivery</addr>
+      <telecom specializationType="TEL.PHONE" value="tel:4167766554" xsi:type="TEL"/>
+      <patientPerson classCode="PSN" determinerCode="INSTANCE">
+       <name use="L">
+        <given>Allison</given>
+        <family>Johnson</family>
+       </name>
+       <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+       <birthTime value="20070319"/>
+      </patientPerson>
+     </patient>
+    </subject>
+    <author typeCode="AUT" contextControlCode="AP">
+     <time value="20070319"/>
+     <assignedPerson classCode="ASSIGNED">
+      <id extension="CPN.00020627.SK.PRS" root="2.16.840.1.113883.4.67"/>
+      <representedPerson classCode="PSN" determinerCode="INSTANCE">
+       <name use="L">
+        <given>Bob</given>
+        <family>McAnulty</family>
+       </name>
+       <asLicensedEntity classCode="LIC">
+        <id extension="CPN.00020627.SK.PRS" root="2.16.840.1.113883.4.67"/>
+       </asLicensedEntity>
+      </representedPerson>
+     </assignedPerson>
+    </author>
+    <location typeCode="LOC" contextControlCode="AP">
+     <serviceDeliveryLocation classCode="SDLOC">
+      <id extension="CPN.00020636.SK.PRS" root="2.16.840.1.113883.4.67"/>
+      <addr nullFlavor="NI"/>
+      <telecom nullFlavor="NI"/>
+      <location classCode="PLC" determinerCode="INSTANCE">
+       <name>Infoway Physician</name>
+      </location>
+     </serviceDeliveryLocation>
+    </location>
+    <reason typeCode="RSON" contextControlCode="AN" contextConductionInd="true">
+     <priorityNumber value="17"/>
+     <!-- INFO: Selected option observationDiagnosis/PORX_MT980050CA.ObservationDiagnosis from choice PORX_MT980050CA.Indications -->
+     <observationDiagnosis classCode="OBS" moodCode="EVN">
+      <code code="DX" codeSystem="2.16.840.1.113883.5.4"/>
+      <text>Confirmed infection of R and L middle ear.</text>
+      <statusCode code="completed"/>
+      <value code="FDBOtitsMediaCode" codeSystem="INSERT YOUR OID HERE"/>
+     </observationDiagnosis>
+    </reason>
+    <precondition typeCode="PRCN" contextControlCode="AN" contextConductionInd="false">
+     <verificationEventCriterion classCode="VERIF" moodCode="EVN.CRT">
+      <code code="VFPAPER" codeSystem="2.16.840.1.113883.5.4"/>
+     </verificationEventCriterion>
+    </precondition>
+    <derivedFrom typeCode="DRIV" contextControlCode="OP" contextConductionInd="false">
+     <sourceDispense classCode="SPLY" moodCode="EVN">
+      <statusCode code="completed"/>
+     </sourceDispense>
+    </derivedFrom>
+    <component1 typeCode="COMP" contextControlCode="ON" contextConductionInd="true">
+     <administrationInstructions classCode="SBADM" moodCode="RQO">
+      <code code="DRUG" codeSystem="2.16.840.1.113883.5.4"/>
+      <text>Take 1 tsp three times daily until finished.</text>
+     </administrationInstructions>
+    </component1>
+    <component2 typeCode="COMP" contextControlCode="AN" contextConductionInd="true">
+     <supplyRequest classCode="SPLY" moodCode="RQO">
+      <statusCode code="_ActStatus"/>
+      <quantity unit="ml" value="150"/>
+      <location typeCode="LOC" contextControlCode="OP">
+       <substitutionConditionCode code="UNCOND" codeSystem="2.16.840.1.113883.5.1071"/>
+       <serviceDeliveryLocation classCode="SDLOC">
+        <id extension="II value" root="1.2.3.4"/>
+        <addr use="H">199 Frenchman&apos;s Creek<city>Toronto</city>
+         <state code="ON">ON</state>
+         <postalCode>H0H0H0</postalCode>
+         <country code="Canada">Canada</country>c/o general delivery</addr>
+        <telecom specializationType="TEL.PHONE" value="tel:4161122334" xsi:type="TEL"/>
+        <location classCode="PLC" determinerCode="INSTANCE">
+         <name>Frenchman&apos;s Creek Pharmacy</name>
+        </location>
+       </serviceDeliveryLocation>
+      </location>
+     </supplyRequest>
+    </component2>
+    <fulfillment1 typeCode="FLFS" contextControlCode="ON" contextConductionInd="true">
+     <subsetCode code="FUTSUM"/>
+     <supplyEventFutureSummary classCode="SPLY" moodCode="EVN">
+      <repeatNumber value="0"/>
+      <quantity unit="ml" value="0"/>
+     </supplyEventFutureSummary>
+    </fulfillment1>
+    <fulfillment2 typeCode="FLFS" contextControlCode="ON" contextConductionInd="true">
+     <subsetCode code="FIRST"/>
+     <supplyEventFirstSummary classCode="SPLY" moodCode="EVN">
+      <effectiveTime>
+       <high value="20140208"/>
+      </effectiveTime>
+      <quantity unit="ml" value="150"/>
+     </supplyEventFirstSummary>
+    </fulfillment2>
+    <fulfillment3 typeCode="FLFS" contextControlCode="ON" contextConductionInd="true">
+     <subsetCode code="RECENT"/>
+     <supplyEventLastSummary classCode="SPLY" moodCode="EVN">
+      <effectiveTime>
+       <high value="20140208"/>
+      </effectiveTime>
+      <quantity unit="ml" value="150"/>
+     </supplyEventLastSummary>
+    </fulfillment3>
+    <fulfillment4 typeCode="FLFS" contextControlCode="ON" contextConductionInd="true">
+     <subsetCode code="PREVSUM"/>
+     <supplyEventPastSummary classCode="SPLY" moodCode="EVN">
+      <repeatNumber value="1"/>
+      <quantity unit="ml" value="150"/>
+     </supplyEventPastSummary>
+    </fulfillment4>
+    <subjectOf1 typeCode="SUBJ" contextControlCode="ON" contextConductionInd="false">
+     <subsetCode code="SUM"/>
+     <annotationIndicator classCode="ACT" moodCode="EVN">
+      <statusCode code="completed"/>
+     </annotationIndicator>
+    </subjectOf1>
+    <subjectOf2 typeCode="SUBJ" contextControlCode="ON" contextConductionInd="false">
+     <subsetCode code="SUM"/>
+     <detectedIssueIndicator classCode="ALRT" moodCode="EVN">
+      <statusCode code="completed"/>
+     </detectedIssueIndicator>
+    </subjectOf2>
+    <subjectOf3 typeCode="SUBJ" contextControlCode="AN" contextConductionInd="false">
+     <refusalToFill classCode="CACT" moodCode="EVN">
+      <code code="PORX_TE010210UV" codeSystem="2.16.840.1.113883.1.18"/>
+      <statusCode code="completed"/>
+      <effectiveTime value="20140319"/>
+      <reasonCode code="FRR03" codeSystem="2.16.840.1.113883.5.8"/>
+      <author typeCode="AUT" contextControlCode="OP">
+       <assignedPerson classCode="ASSIGNED">
+        <id extension="II value" root="1.2.3.4"/>
+        <code code="PHARM" codeSystem="2.16.840.1.113883.2.20.5.3"/>
+        <representedPerson classCode="PSN" determinerCode="INSTANCE">
+         <name use="L">
+          <given>Trevor</given>
+          <family>Woolsen</family>
+         </name>
+         <asLicensedEntity classCode="LIC">
+          <id extension="II val" root="1.2.3.45"/>
+         </asLicensedEntity>
+        </representedPerson>
+       </assignedPerson>
+      </author>
+      <reason typeCode="RSON" contextControlCode="ON" contextConductionInd="true">
+       <detectedIssueEvent classCode="ALRT" moodCode="EVN">
+        <code code="ALLDONE" codeSystem="2.16.840.1.113883.5.4"/>
+        <text>Patient must see physician before this prescription can be reauthorised.</text>
+        <statusCode code="completed"/>
+       </detectedIssueEvent>
+      </reason>
+     </refusalToFill>
+    </subjectOf3>
+    <componentOf typeCode="COMP" contextControlCode="AN" contextConductionInd="false">
+     <workingListEvent classCode="LIST" moodCode="EVN">
+      <code code="ACU" codeSystem="2.16.840.1.113883.5.4"/>
+     </workingListEvent>
+    </componentOf>
+   </combinedMedicationRequest>
+  </subject>
+  <subjectOf typeCode="SUBJ" contextControlCode="AP" contextConductionInd="false">
+   <detectedIssueEvent classCode="ALRT" moodCode="EVN">
+    <code code="NAT" codeSystem="2.16.840.1.113883.5.4"/>
+    <text>The requesting party has insufficient authorization to invoke the interaction.</text>
+    <statusCode code="completed"/>
+    <priorityCode code="E" codeSystem="2.16.840.1.113883.5.1082"/>
+    <!-- DEV NOTE: Because the issue raised and managed here has to do with an issue with requesting a medication profile and is not patient-related, this section is not needed. -->
+    <!-- <subject typeCode="SUBJ" contextControlCode="OP" contextConductionInd="false"> -->
+     <!-- INFO: Selected option substanceAdministration/PORX_MT980030CA.SubstanceAdministration from choice PORX_MT980030CA.CausalActs -->
+     <!-- <substanceAdministration classCode="SBADM" moodCode="RQO">
+      <id extension="II value" root="1.2.3.4"/>
+      <code code="DRUG" codeSystem="2.16.840.1.113883.5.4"/>
+      <statusCode code="completed"/>
+      <effectiveTime>
+       <low value="19770522"/>
+       <high value="20130914"/>
+      </effectiveTime>
+      <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+      <doseQuantity unit="[foz_br]" value="43.3"/>
+      <consumable typeCode="CSM">
+       <medication classCode="MED">
+        <player classCode="MMAT" determinerCode="KIND">
+         <code code="00628158" codeSystem="2.16.840.1.113883.5.1105"/>
+         <name>APO-AMOXI PWR FOR SUSP 250MG/5ML </name>
+         <desc>Insert additional text here</desc>
+         <formCode code="FDBDosageForm" codeSystem="2.16.840.1.113883.3.567.12.8"/>
+         <asManufacturedProduct classCode="MANU">
+          <manufacturer classCode="ORG" determinerCode="INSTANCE">
+           <id extension="II val" root="1.2.3.45"/>
+           <name>APOTEX INCORPORATED</name>
+          </manufacturer>
+         </asManufacturedProduct>
+         <asContent classCode="CONT">
+          <quantity unit="ml" value="150"/>
+          <containerPackagedMedicine classCode="CONT" determinerCode="KIND">
+           <formCode code="_CompliancePackageEn" codeSystem="2.16.124.101.1.277"/>
+          </containerPackagedMedicine>
+         </asContent>
+         <ingredient classCode="INGR" negationInd="false">
+          <quantity unit="mg" value="750"/>
+          <ingredient classCode="MMAT" determinerCode="KIND">
+           <code code="FDBAMOXICODE" codeSystem="2.16.840.1.113883.6.288"/>
+           <name>amoxicillin</name>
+          </ingredient>
+         </ingredient>
+        </player>
+       </medication>
+      </consumable>
+     </substanceAdministration>
+    </subject> -->
+    <!-- DEV NOTE: Because the issue raised and managed here has to do with an issue with requesting a medication profile and is not patient-related, this section is not needed. -->
+    <!-- <instantiation typeCode="INST" contextControlCode="ON" contextConductionInd="false">
+     <detectedIssueDefinition classCode="ALRT" moodCode="DEF">
+      <id extension="II val" root="1.2.3.45"/>
+      <text mediaType="text/plain">
+       <reference value="http://www.google.ca"/>
+      </text>
+      <author typeCode="AUT" contextControlCode="OP">
+       <time value="20070319"/>
+       <assignedEntity classCode="ASSIGNED">
+        <assignedOrganization classCode="ORG" determinerCode="INSTANCE">
+         <name>Name of organization</name>
+        </assignedOrganization>
+       </assignedEntity>
+      </author>
+      <component typeCode="COMP" contextControlCode="ON" contextConductionInd="true">
+       <substanceAdministrationEventCriterion classCode="SBADM" moodCode="EVN.CRT">
+        <effectiveTime>
+         <width unit="d" value="15"/>
+        </effectiveTime>
+        <doseQuantity>
+         <low unit="[cup_us]" value="13.3"/>
+         <high unit="[cup_us]" value="26.3"/>
+        </doseQuantity>
+        <component typeCode="COMP" contextControlCode="ON" contextConductionInd="true">
+         <observationEventCriterion classCode="OBS" moodCode="EVN.CRT">
+          <code code="30525-0" codeSystem="2.16.840.1.113883.6.1"/>
+          <value>
+           <low unit="kg" value="27"/>
+           <high unit="kg" value="27"/>
+          </value>
+         </observationEventCriterion>
+        </component>
+       </substanceAdministrationEventCriterion>
+      </component>
+     </detectedIssueDefinition>
+    </instantiation> -->
+    <mitigatedBy typeCode="MITGT" contextControlCode="ON" contextConductionInd="false">
+     <detectedIssueManagement classCode="ACT" moodCode="EVN">
+      <code code="21" codeSystem="2.16.840.1.113883.5.4"/>
+      <text>emergency authorization override</text>
+      <statusCode code="completed"/>
+      <author typeCode="AUT">
+       <time value="20070319082730"/>
+       <assignedPerson classCode="ASSIGNED">
+        <id extension="MY CUSTOM II" root="5.6.7"/>
+        <code code="_HealthcareProviderR" codeSystem="2.16.124.101.1.277"/>
+        <representedPerson classCode="PSN" determinerCode="INSTANCE">
+         <name use="L">
+          <given>Bob</given>
+          <family>McAnulty</family>
+         </name>
+         <asLicensedEntity classCode="LIC">
+          <id extension="II value" root="1.2.3.4"/>
+         </asLicensedEntity>
+        </representedPerson>
+       </assignedPerson>
+      </author>
+     </detectedIssueManagement>
+    </mitigatedBy>
+    <!-- DEV NOTE: Because the issue raised and managed here has to do with an issue with requesting a medication profile and is not patient-related, this section is not needed. -->
+    <!-- <subjectOf typeCode="SUBJ" contextControlCode="ON" contextConductionInd="false">
+     <severityObservation classCode="OBS" moodCode="EVN">
+      <code code="H" codeSystem="2.16.840.1.113883.1063"/>
+      <statusCode code="completed"/>
+      <value code="FDBMILDCODE" codeSystem="INSERT YOUR OID HERE"/>
+     </severityObservation>
+    </subjectOf> -->
+   </detectedIssueEvent>
+  </subjectOf>
+  <queryAck>
+   <queryId extension="MY CUSTOM II" root="5.6.7"/>
+   <queryResponseCode code="OK"/>
+   <resultTotalQuantity value="1"/>
+   <resultCurrentQuantity value="1"/>
+   <resultRemainingQuantity value="1"/>
+  </queryAck>
+  <queryByParameter>
+   <queryId extension="II value" root="1.2.3.4"/>
+   <parameterList>
+    <administrationEffectivePeriod>
+     <value>
+      <low value="19770522"/>
+      <high value="20130914"/>
+     </value>
+    </administrationEffectivePeriod>
+    <amendedInTimeRange>
+     <value>
+      <low value="19770522000000"/>
+      <high value="20140514000000"/>
+     </value>
+    </amendedInTimeRange>
+    <issueFilterCode>
+     <value code="A" codeSystem="2.16.840.1.113883.5.1096"/>
+    </issueFilterCode>
+    <mostRecentByDrugIndicator>
+     <value value="false"/>
+    </mostRecentByDrugIndicator>
+    <patientBirthDate>
+     <value value="20070319"/>
+    </patientBirthDate>
+    <patientGender>
+     <value code="F" codeSystem="2.16.840.1.113883.5.1"/>
+    </patientGender>
+    <patientID>
+     <value extension="140123008" root="INSERT YOUR OID HERE"/>
+    </patientID>
+    <patientName>
+     <value use="L">
+      <given>Allison</given>
+      <family>Johnson</family>
+     </value>
+    </patientName>
+   </parameterList>
+  </queryByParameter>
+ </controlActEvent>
+</PORX_IN060400CA>]]></ac:plain-text-body>
+      </ac:structured-macro>
+    </ac:layout-cell>
+  </ac:layout-section>
+  <ac:layout-section ac:type="single">
+    <ac:layout-cell>
+       <h1>
+        <strong>Security</strong>
+      </h1>
+       <h2>
+        <strong>Authentication</strong>
+      </h2>
+       <ac:placeholder>Enter content here</ac:placeholder>
+       <h2>
+        <strong>Authorization</strong>
+      </h2>
+     <ac:placeholder>Enter content here</ac:placeholder>
+    </ac:layout-cell>
+  </ac:layout-section>
+</ac:layout>

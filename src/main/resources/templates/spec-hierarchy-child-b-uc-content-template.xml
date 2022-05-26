@@ -1,0 +1,36 @@
+<ac:structured-macro ac:name="scroll-pdf-ignore">
+  <ac:rich-text-body>
+    <h1>Use Cases</h1>
+    <p style="text-align: right;">
+     <!--  <ac:structured-macro ac:name="create-from-template">
+        <ac:parameter ac:name="blueprintModuleCompleteKey">ca.infoway.confluence.plugins.chi-templates:chi-use-case-template-bp</ac:parameter>
+        <ac:parameter ac:name="title">UC-</ac:parameter>
+        <ac:parameter ac:name="buttonLabel">Add a Use Case</ac:parameter>
+      </ac:structured-macro> -->
+      <ac:structured-macro ac:name="chi-create-from-business-template">
+        <ac:parameter ac:name="pageType">UC</ac:parameter>
+      </ac:structured-macro>
+    </p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p> </p>
+<p>
+<ac:structured-macro ac:name="table-filter">
+  <ac:parameter ac:name="globalFilter">true</ac:parameter>
+  <ac:parameter ac:name="separator">Point (.)</ac:parameter>
+  <ac:parameter ac:name="datepattern">yy-mm-dd</ac:parameter>
+  <ac:rich-text-body>
+    <p>
+  		<ac:structured-macro ac:name="detailssummaryversioned">
+    		<ac:parameter ac:name="headings">Description</ac:parameter>
+    		<ac:parameter ac:name="firstcolumn">ID</ac:parameter>
+    		<ac:parameter ac:name="sortBy">title</ac:parameter>
+    		<ac:parameter ac:name="label">use-case</ac:parameter>
+  		</ac:structured-macro>
+    </p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<ac:structured-macro ac:name="specification-page-sorter">
+  <ac:parameter ac:name="order">ascending</ac:parameter>
+</ac:structured-macro>
+</p>

@@ -1,0 +1,70 @@
+#set ($d = "$")
+<div>
+<table class="aui">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Last Login Date</th>
+            <th>Groups</th>
+            <th>Permissions and Roles<th>
+            #if ($isAdmin) 
+            	<th>Delete User From InfoScribe</th>
+            #end
+        </tr>
+    </thead>
+    <tbody>
+    	#foreach($user in $inactiveUserList)
+    		<tr>
+            	<td>$user.getUserName()</td>
+            	<td>$user.getUserFullName()</td>
+            	<td>$user.getEmail()</td>
+            	<td>$user.getLastLogin()</td>
+            	<td>$user.getGroups()</td>
+            	<td>
+            		<ul>
+            		#foreach($detail in $user.getUserGroupDetails()) 
+            			#set ($spaceKey = $detail.get('space'))
+            			#set ($space = $spaceManager.getSpace($spaceKey))
+            			<li><span><a href='$settingsManager.getGlobalSettings().getBaseUrl()/display/$spaceKey'>$space.getName()</a>: $detail.get('role')</span></li>
+            		#end
+            		</ul>
+            	<td>
+            	#if ($isAdmin)
+            		<td style="text-align:center;">
+            			<button id="user-$user.getUserName()-remove" class="aui-button aui-button-link"><span class="aui-icon aui-icon-small aui-iconfont-close-dialog" style="color: rgb(206, 0, 0);"></span></button>
+            		</td>
+            	#end
+        	</tr>
+        	#if ($isAdmin)
+        	<script>
+        		AJS.toInit(function() {
+        			var thisButton = AJS.$("#user-$user.getUserName()-remove");
+        			var servletUrl = "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/servlet/infoway/inactiveuserremove";
+        			thisButton.click(function() {
+        				if (confirm('Click OK to continue deleting user "$user.getUserName()".')) {
+        					AJS.${d}.ajax({
+								url: servletUrl,
+								data: {
+									username: "$user.getUserName()"
+								},
+								success: function(data) {
+									// alert('Successful. Re-loading page...');
+									location.reload();
+    							},
+    							error: function(data) {
+        							alert('Could not remove user.');
+    							}
+							});
+        				}
+
+        			});
+        		});
+        	</script>
+        	#end
+    	#end
+    </tbody>
+</table>
+<span style="float: right;">Number of inactive users: <b>$numberOfInactives</b></span>
+</div>

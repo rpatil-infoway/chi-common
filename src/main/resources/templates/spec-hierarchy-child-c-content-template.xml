@@ -1,0 +1,98 @@
+<p>
+  <strong>On this Page:</strong>
+</p>
+<p>
+  <ac:structured-macro ac:name="toc"/>
+</p>
+<h1>Interaction Diagram</h1>
+<p>
+  <ac:structured-macro ac:name="gallery"/>
+</p>
+<p>
+  <ac:structured-macro ac:name="attachments">
+    <ac:parameter ac:name="upload">true</ac:parameter>
+  </ac:structured-macro>
+</p>
+<h1>Standards</h1>
+<p>This specification is developed based on the &lt;ENTER YOUR STANDARD HERE&gt; standard.</p>
+<h1>Clinical information</h1>
+<ac:structured-macro ac:name="tip">
+  <ac:parameter ac:name="icon">false</ac:parameter>
+  <ac:parameter ac:name="title">Purpose</ac:parameter>
+  <ac:rich-text-body>
+    <p>
+      <span style="color: rgb(0,0,0);">The purpose of this section is to provide all the business relevant data elements as defined in the business rules. On the other hand, technical relevant data elements, such as Application OID and Provider ID, can be found in HL7 Explorer and the <ac:link>
+          <ri:page ri:content-title="Technical Interoperability"/>
+          <ac:link ac:tooltip="BR-01">
+           <ri:page ri:content-title="Technical Interoperability"/>
+          </ac:link>
+        </ac:link> page.</span>
+    </p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<p> </p>
+
+<h2>Medication Profile Summary Query (PORX_IN060390CA)</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Business Rule</th>
+      <th>Data Element</th>
+      <th>Vocabulary</th>
+    </tr>
+    <tr>
+      <td>
+        <ac:structured-macro ac:name="chi-popover">
+          <ac:parameter ac:name="ID">BR-01</ac:parameter>
+        </ac:structured-macro>
+      </td>
+      <td>
+        <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/message.html?QUQI_MT020000CA.ControlActEvent.reasonCode">Reason Code</a>
+      </td>
+      <td>
+        <a href="https://infocentral.infoway-inforoute.ca/extra/sk/v01r04-pip-html/html/vocabulary.html?type=vs&amp;id=PatientProfileQueryReasonCode&amp;defaultShowConcepts">PatientProfileQueryReasonCode</a>
+      </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <p>
+  <ac:structured-macro ac:name="livesearch">
+    <ac:parameter ac:name="spaceKey">
+      <ri:space ri:space-key="@self"/>
+    </ac:parameter>
+    <ac:parameter ac:name="additional">none</ac:parameter>
+    <ac:parameter ac:name="type">page</ac:parameter>
+    <ac:parameter ac:name="labels">message</ac:parameter>
+  </ac:structured-macro> <span style="line-height: 1.4285715;">Tips: Please add an asterisk (*) at the end of the search</span>
+</p>
+<p style="text-align: right;">
+  <ac:structured-macro ac:name="create-from-template">
+    <ac:parameter ac:name="templateName">1146881</ac:parameter>
+    <ac:parameter ac:name="templateId">1146881</ac:parameter>
+    <ac:parameter ac:name="buttonLabel">Add a Message</ac:parameter>
+  </ac:structured-macro>
+</p>
+<hr/>
+<p>
+  <span>
+    <ac:structured-macro ac:name="detailssummary">
+      <ac:parameter ac:name="firstcolumn">Technical Name</ac:parameter>
+      <ac:parameter ac:name="headings">Business Name, Details</ac:parameter>
+      <ac:parameter ac:name="sortBy">title</ac:parameter>
+      <ac:parameter ac:name="label">message</ac:parameter>
+    </ac:structured-macro>
+  </span>
+</p>
+<p> </p>
+ -->

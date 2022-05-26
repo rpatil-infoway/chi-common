@@ -1,0 +1,59 @@
+#addSpaceLink { display: none !important; }
+#spaces-pane-add-link { display: none !important; }
+#create-space-header { display: none !important; }
+#forgot-password.aui-button { display: none !important; }
+#people-directory-link { display: none !important; }
+#likes-section { display: none !important; }
+#addUsersLink { display: none !important; }
+#section-integrations { display: none !important; }
+#action-export-word-link { display: none !important; }
+.dashboard-item.wiki-content:not(.welcome-message) { display: none !important; }
+.menu-item > #space-blogposts-link-tab { display: none !important; }
+li > #space-blogposts-link { display: none !important; }
+li > #space-blog-watching { display: none !important; }
+li > #k15t-com-metadata-navlink { display: none !important; }
+li > a[title="HTML Export"] { display: none !important; }
+li[data-item-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-item"] { display: none !important; }
+li[data-blueprint-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-personal-space-blueprint"] { display: none !important; }
+li[data-blueprint-module-complete-key="com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blank-space-blueprint"]  { display: none !important; }
+li[data-item-module-complete-key='com.atlassian.confluence.plugins.confluence-create-content-plugin:create-blog-post'] { display: none !important; }
+li[data-item-module-complete-key='ca.infoway.confluence.plugins.chi-templates:chi-business-rule-wi'] { display: none !important; }
+li[data-item-module-complete-key='ca.infoway.confluence.plugins.chi-templates:chi-guidance-wi'] { display: none !important; }
+li[data-item-module-complete-key='ca.infoway.confluence.plugins.chi-templates:chi-use-case-wi'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838160'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838161'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838162'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838163'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838164'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838165'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838166'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838167'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838168'] { display: none !important; }
+div.template-select-container-body > ol > li[data-template-id='24838169'] { display: none !important; }
+/* Hide the 'add or customize templates...' link in the Create a Page dialog */
+a.add-remove-customise-templates-trigger.button-panel-link { display: none !important; }
+/* Hide the Activity Stream macro */
+li > [id="macro-gadget-684717c5dd68e1f2c9035ed3acd5f14a"] { display: none !important; }
+/* Hide Currently Published in the Working Version dropdown for Scroll Versions */
+a.item-link.sv-version-current { display: none !important; }
+/* Hide the 'within the same space’ link in the Publish page under Scroll Content Management */
+li > a[data-publish-type="to_same"] { display: none !important; }
+li > #sv-globalsettings { display: none !important; }
+/* Hide the Find More Macro.. link in the Select Macro dialog */
+#select-macro-page > .dialog-button-panel > .dialog-tip { display: none !important; }
+#view-user-profile-link  { display: none !important; }
+.user-profile .profile-page .profile-info { display: none !important; }
+/* hide My Last Export Setting option in Scroll PDF */
+.scroll-pdf-export-dialog .export-scheme.last-used { display: none; }
+/* use a stronger background color for Scroll Versions variant */ 
+.sv-infopopup-container:hover { background-color: #77CE89; }
+.sv-infopopup-container { background-color: #77CE89; }
+.sv-infopopup-container.sv-conditional-unavailable { background: #DDDDDD; text-decoration: line-through; }
+/* larger width for the first column in aui table */
+table.aui.metadata-summary-macro>thead>tr>th.first-id-column{min-width: 60px !important;}
+/* increase the height of the preview header in Insert Macro dialog */
+.dialog-page-body .macro-preview-header { height: 35px !important; } 
+/* hide the calendar button in the top menu */
+nav > div > div > ul > li > a[title="Calendars"] { display: none !important; }
+/* use black font for the text in the keyboard shortcuts help menu */
+kbd.regular-key { color: black !important; }

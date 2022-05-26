@@ -1,0 +1,49 @@
+<p>
+  <strong>On this Page:</strong>
+</p>
+<p>
+  <ac:structured-macro ac:name="toc"/>
+</p>
+<h1 class="page-header main-header">Clinical Requirements</h1>
+<ac:structured-macro ac:name="tip">
+  <ac:rich-text-body>
+    <p>This section lists a set of Clinical Requirements statements that were identified based on an investigation. These Clinical Requirements are then traceable to the specifications that execute on the Requirements.</p>
+  </ac:rich-text-body>
+</ac:structured-macro>
+<table>
+  <tbody>
+    <tr>
+      <th>ID</th>
+      <th>Clinical Requirements</th>
+      <th>Rationale</th>
+      <th>Priority</th>
+      <th>Specification</th>
+    </tr>
+    <tr>
+      <td>CR - 01</td>
+      <td>
+        <span>Clinicians do not want to have to sign into their EMR and then sign in separately to an outside system to access information. They should only have to sign in once.</span>
+      </td>
+      <td>Multiple sign-on or log-in dialogues represent an unnecessary disruption to a clinician's train of thought while assessing a patient.</td>
+      <td>High</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>CR - 02</td>
+      <td>
+        <span>Accessing and viewing the patient’s medication profile needs to be fast, often clinicians are with a patient when this step happens.</span>
+      </td>
+      <td>Clinicians often have very full schedules and have limited time with each patient. Minimizing the lag time to present the patient's medication profile will allow a patient appointment to proceed more smoothly.</td>
+      <td>Low</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>
+        <ac:placeholder>You can add more rows by clicking this table and then select the "Insert row after" button in the top Editor panel.</ac:placeholder> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>

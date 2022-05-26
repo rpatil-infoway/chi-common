@@ -1,0 +1,18 @@
+In InfoRMS, please assign this ticket to Tanya Achilles and add Sam Tse as the watcher. Thank you.<br />
+<br />
+<b>Name: </b> $userName<br />
+<b>Email: </b> $userEmail<br />
+<b>Phone Number: </b> $phoneNumber<br />
+<b>Company: </b> $companyName<br />
+	<b>Document Type(s): </b> 
+	<ul>
+		#if ($clinReqTypeBool)
+		<li>Clinical Requirements</li>
+		#end
+		#if ($specTypeBool)
+		<li>Specification</li>
+		#end
+	</ul>
+<br />
+<b>Description of the Document: </b> $docDescription<br />
+<b>Questions or Comments: </b> $questionsComments<br />

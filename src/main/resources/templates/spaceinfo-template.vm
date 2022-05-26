@@ -1,0 +1,404 @@
+<table id="spaceinfo-table" class="confluenceTable">
+    <tbody>
+    	#if ($organizations)	
+        <tr>
+        	<th class="confluenceTh">Organizations</th>
+        	<td class="confluenceTd">
+        			$organizations
+        	</td>
+        </tr>
+        #end
+        #if ($domain)
+        <tr>
+        	<th class="confluenceTh">Domain</th>
+        	<td class="confluenceTd">
+        			$domain
+        	</td>
+        </tr>
+        #end
+        #if ($clinical-area)
+        <tr>
+        	<th class="confluenceTh">Clinical Area</th>
+        	<td class="confluenceTd">
+        			$clinical-area
+        	</td>
+        </tr>
+        #end
+        #if ($jurisdictions)
+		<tr>
+        	<th class="confluenceTh">Jurisdictions</th>
+        	<td class="confluenceTd">
+        			$jurisdictions
+        	</td>
+        </tr>
+        #end
+        #if ($standards)
+        <tr>
+        	<th class="confluenceTh">Standards</th>
+        	<td class="confluenceTd">
+        			$standards
+        	</td>
+        </tr>
+        #end
+        #if ($standards-version)
+        <tr>
+        	<th class="confluenceTh">Standards Version</th>
+        	<td class="confluenceTd">
+        			$standards-version
+        	</td>
+        </tr>
+        #end
+        #if ($additional-metadata)
+        <tr>
+        	<th class="confluenceTh">Additional Information</th>
+        	<td class="confluenceTd">
+        		 	$additional-metadata
+        	</td>
+        </tr>
+        #end
+		#if ($isVersioned || ($permissionExists == "false" && $groupNames.size() > 0))
+        <tr>
+        	<th class="confluenceTh">Users and Groups</th>
+        	<td class="confluenceTd">
+        		#foreach ($key in $groupNames)
+        			<b>$key</b>&nbsp;
+        			#if ($key == "Approvers")
+        				$approversTipWithHtml
+        			#elseif ($key == "Authors")
+        				$authorsTipWithHtml
+        			#elseif ($key == "Reviewers")
+        				$reviewersTipWithHtml
+        			#end
+        			<ul>
+        			#if ($group-to-user-map.get($key).size() > 0)
+        				#foreach ($user in $group-to-user-map.get($key))
+        					<li>$user</li>
+        				#end
+        			#else
+        				<li>no users in this group</li>
+        			#end
+        			</ul>
+        		#end
+        		<br>
+        		#if ($individual-users.size() > 0)
+        		<b>Individual Users</b><ul>
+    				#foreach ($user in $individual-users)
+    					<li>($user)</li>
+    				#end
+        		#end
+        		</ul>
+        		$spaceUserManagerWithHtml
+			</td>
+        </tr>
+			#if ($isShowInviteModule)        
+	        <tr style="display:none;">
+	        	<th class="confluenceTh">Invites</th>
+	        	<td class="confluenceTd">
+	        	
+	        	<ul>
+	        	#if (!$invites.isEmpty())
+	        		#foreach( $invite in $invites )
+	        			<span id="invite-box-$invite.id">
+		        			<li>
+						    <div><b>$invite.inviteeName ($invite.inviteeEmail)</b> - $stringUtils.capitalizeFirstLetter($invite.role)</div>
+						    <div>
+						    	<i>This invite was last sent on $date.format('MMM d, yyyy', $invite.lastSendDate).</i> 
+						    </div>
+						    #if ($isUserAllowToInvite)
+						    <div>
+						    	<button class="aui-button aui-button-link invite-again-button" type="button" data-invite-id="$invite.id" data-invitee-name="$invite.inviteeName ($invite.inviteeEmail)">Send Invite Again</button>
+						    	<button class="aui-button aui-button-link cancel-invite-button" type="button" data-invite-id="$invite.id" data-invitee-name="$invite.inviteeName ($invite.inviteeEmail)">Cancel Invite</button>
+						    </div>
+						    #end
+					    	</li>
+					    </span>
+					#end
+					</ul>
+					
+					#if ($isUserAllowToInvite)
+		        	<hr>
+		        	#end
+		        #end	
+		       
+		        #if ($isUserAllowToInvite)
+		        	
+		        	<div class="button-wrapper">
+		        		<button class="aui-button setup-new-invites-button" type="button"><span class="aui-icon aui-icon-small aui-iconfont-user"></span> Invite New User</button>
+					</div>
+		        	
+		        	<!-- MUST include pageId in the action parameter either wise the action will fail -->    
+		        	<form id="setup-new-invites-form" method="POST" class="aui top-label" action="$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/invite-user-submit.action?pageId=$pageId" style="display:none;">
+		        	    <h3>New Invite</h3>	
+		        		<fieldset class="top-label">
+			        	    <div class="field-group top-label">
+				                <label for="inviteeName">Name<span class="aui-icon icon-required"></span></label>
+			    	            <input class="text" type="text" id="inviteeName" placeholder="Name"> 
+			                </div>
+			        	    <div class="field-group top-label">
+			        	       <label for="inviteeEmail">Email<span class="aui-icon icon-required"></span></label>
+			                	<input class="text medium-field" type="text" id="inviteeEmail" placeholder="invitee@example.com">
+			        	    </div>
+			        	    <div class="field-group top-label">
+			        	       <label for="inviteeRole">Role<span class="aui-icon icon-required"></span></label>
+			                	<select id="inviteeRole">
+							        <option value="reviewer">Reviewer</option>
+							        <option value="author">Author</option>
+							        <option value="approver">Approver</option>
+							    </select>
+			    				
+			        	    </div>
+		        	    </fieldset>
+		        	    
+		        	    <br>
+		        	    
+		        	    <button class="aui-button aui-button-primary invite-button" type="button">Invite</button>
+		        	    <button class="aui-button invite-cancel-button" type="button">Cancel</button>
+		        	    
+		        	    <br><br>
+		        	    <div id="inviteMessage" />
+					</form>
+				#end
+				
+	        	</td>
+	        </tr>
+	        #end
+        #end 
+        
+        #if ($isVersioned == false && $isUserAllowToInvite)
+        <tr>
+        	<th class="confluenceTh">Visibility 
+        	<a id="visibility-tip"  href="#" class="group-tooltip" title="'Public' means all authenticated users can view this space. 'Private' means only selected users can view this space.">
+				<span class="aui-icon aui-icon-small aui-iconfont-help" style="color: #14892c;"></span>
+			</a>
+			</th>
+        	<td class="confluenceTd">
+        		<div class="aui-buttons">
+    				<button class="aui-button state-toggle" id="public-toggle">Public</button>
+    				<button class="aui-button state-toggle" id="private-toggle">Private</button>
+				</div>
+				<br><br>
+				<div>
+				#if ($permissionExists == "true")
+					All authenticated users can view this space.
+				#end
+				
+				#if ($groupNames.size() == 0)
+					#if ($usersWithAccessList.size() > 0)
+        				Only approvers can edit this space:
+        				<ul>
+        				#foreach ($user in $usersWithAccessList)
+        					<li>$user</li>
+        				#end
+        				</ul>
+        			#else
+        				There are currently no approvers who can view this space.
+        			#end
+				#end
+				</div>
+        	</td>
+        </tr>
+        #end
+    </tbody>
+</table>
+<span id='metadata-macro-container' style='display: none;'>$metadataTemplateWithHtml</span>
+
+<script>
+	#set ($d = "$")
+	
+    AJS.toInit(function(){
+    
+    	function convertErrorsToHTML(errors) {
+    		var list=$("<ul/>");
+		    for(var i=0;i<errors.length;i++)
+		    {
+		       var li="<li>"+errors[i]["error"]+"</li>";
+		       list.append(li); 
+		    }   
+		    return list.append($('#temp').clone()).html();
+    	};
+
+    	AJS.$(".group-tooltip").tooltip();
+    	AJS.$("#inviteeRole").auiSelect2();
+    	
+    	AJS.$(".setup-new-invites-button").click(function() {
+    		AJS.$("#setup-new-invites-form").fadeIn();
+    		AJS.$(".setup-new-invites-button").hide();
+    		
+    		AJS.$("#inviteeName").val("");
+			AJS.$("#inviteeEmail").val("");
+    		AJS.$("#inviteeName").focus();
+    	});
+    	
+    	AJS.$(".invite-cancel-button").click(function() {
+    		AJS.$("#setup-new-invites-form").hide();
+    		AJS.$(".setup-new-invites-button").fadeIn();
+    	});
+
+		// New Invite
+		AJS.$(".invite-button").click(function(event) {
+		 	
+		 	var inviteeName = AJS.$("#inviteeName").val();
+		 	var inviteeEmail = AJS.$("#inviteeEmail").val();
+		 	var inviteeRole = AJS.$("#inviteeRole").val();
+		 			
+		 	AJS.$("#inviteMessage").children().remove();
+			
+		 	AJS.${d}.ajax({
+				url: "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/invite-user-submit.action",
+				method: "POST",
+				data: {
+					pageId: "$pageId",
+					action: "new-invite",
+					inviteeName: inviteeName,
+					inviteeEmail: inviteeEmail,
+					inviteeRole: inviteeRole,
+				},
+				success: function(data) {
+					try {
+				        response = JSON.parse(data);
+				        if (response.status === "success") {
+				        	//body: '<p><b>' + inviteeName + ' (' + inviteeEmail + ')</b> has been invited. You can invite another user or <a href="#" onclick="location.reload();">reload this page to view the new invites</a>.</p>'
+				        	AJS.messages.success("#inviteMessage", {
+				   				title: 'Success',
+				   				body: '<p><b>' + inviteeName + ' (' + inviteeEmail + ')</b> has been invited. <br>Reloading page....</p>'
+							});
+							 window.setTimeout(function(){location.reload()},1000);
+							//AJS.$("#inviteeName").val("");
+							//AJS.$("#inviteeEmail").val("");
+							//AJS.$("#inviteeName").focus();
+				        } else if (response.status === "error") {
+					         AJS.messages.error("#inviteMessage", {
+				   				title: (response.errors.length > 1) ? 'Errors' : 'Error',
+				   				body: convertErrorsToHTML(response.errors)
+							});
+				        }
+				    } catch (e) {
+				    	console.log(e);
+				        AJS.messages.error("#inviteMessage", {
+			   				title: 'Error',
+			   				body: '<p>Unknown error (with JavaScript exception) is encountered.</p>'
+						});
+				    };
+				},
+				error: function(data) {
+					console.log("error");
+					AJS.messages.error("#inviteMessage", {
+		   				title: 'Error',
+		   				body: '<p>Unknown error is encountered.</p>'
+					});
+				}
+			});
+		});
+				
+		// Invite Again	
+		AJS.$(".invite-again-button").click(function(event) {
+		 	var inviteId = $(event.target).data("inviteId");
+		 	var inviteeName = $(event.target).data("inviteeName");
+		 	
+		 	AJS.${d}.ajax({
+				url: "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/invite-user-submit.action",
+				method: "POST",
+				data: {
+					pageId: "$pageId",
+					action: "invite-again",
+					inviteId: inviteId
+				},
+				success: function(data) {
+					AJS.messages.success("#invite-box-" + inviteId, {
+		   				title: 'Success',
+		   				body: '<p>Invite has been re-sent.</p>',
+		   				fadeout: true,
+		   				delay: 3000
+					});
+				},
+				error: function(data) {
+					AJS.messages.error("#invite-box-" + inviteId, {
+			   			title: 'Error',
+			   			body: '<p>Unknown error is encountered.</p>'
+					});
+				}
+			});
+		});
+		
+		// Cancel Invite
+		AJS.$(".cancel-invite-button").click(function(event) {
+		 	var inviteId = $(event.target).data("inviteId");
+		 	var inviteeName = $(event.target).data("inviteeName");
+		 	
+		 	AJS.${d}.ajax({
+				url: "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/invite-user-submit.action",
+				method: "POST",
+				data: {
+					pageId: "$pageId",
+					action: "cancel-invite",
+					inviteId: inviteId,
+					inviteeRole: inviteeRole
+				},
+				success: function(data) {
+					AJS.$("#invite-box-" + inviteId).empty();
+					AJS.messages.success("#invite-box-" + inviteId, {
+		   				title: 'Success',
+		   				body: '<p>Invite for <b>' + inviteeName + '</b> has been cancelled.</p>',
+		   				fadeout: true,
+		   				delay: 3000
+					});
+				},
+				error: function(data) {
+					AJS.messages.error("#inviteMessage", {
+			   			title: 'Error',
+			   			body: '<p>Unknown error is encountered.</p>'
+					});
+				}
+			});
+		});
+		
+		#if (!$isVersioned)
+			var publicButton = AJS.$("#public-toggle");
+			var privateButton = AJS.$("#private-toggle");	
+			var visibilityServletUrl = "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/servlet/infoway/togglespacevisibility";
+				
+			#if ($permissionExists == "false")
+			## public
+				privateButton.prop("disabled", true);
+				privateButton.attr("aria-pressed", true);
+				publicButton.click(function() {
+					AJS.${d}.ajax({
+						url: visibilityServletUrl,
+						data: {
+							spaceVisibility: "public",
+							spaceKey: "$spaceKey",
+						},
+						success: function(data) {
+							// alert('Successful. Re-loading page...');
+							location.reload();
+    					},
+    					error: function(data) {
+        					alert('Visibility change failed.');
+    					}
+					});
+				});
+			#else
+				## private
+				publicButton.prop("disabled", true);
+				publicButton.attr("aria-pressed", true);
+				privateButton.click(function() {
+					AJS.${d}.ajax({
+						url: visibilityServletUrl,
+						data: {
+							spaceVisibility: "private",
+							spaceKey: "$spaceKey",
+						},
+						success: function(data) {
+							// alert('Successful. Re-loading page...');
+							location.reload();
+    					},
+    					error: function(data) {
+        					alert('Visibility change failed.');
+    					}
+					});
+				});
+			#end
+		#end
+	});
+		
+</script>

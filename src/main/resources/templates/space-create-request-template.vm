@@ -1,0 +1,168 @@
+#set ( $requiredFieldWithHtml = "<span class='aui-icon icon-required'>(required)</span>" )
+
+<div id="submit_success">
+	Your request has been submitted.  
+</div>
+
+<div id="submit_failed">
+	An error has occured. Please contact us at InfoCentral@Infoway-Inforoute.ca for further support.
+</div>
+
+<form id="request-submit-form" class="aui" action="$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/space-create-request-submit.action">
+
+	<h2><b>InfoScribe New Space Request Form</b></h2>
+
+	<p>InfoScribe was developed as a tool to facilitate the authoring of Clinical Requirements and Specifications for Interoperability solutions. By filling out this form with a description of your project, you'll be helping our team understand your needs and determine how best we can support you.</p>
+	
+	<br />
+	
+	 <span style='color: #D04437;'>*</span><i><span style="color: #a7a7a7;"> field is mandatory</span></i>
+	 <div class="field-group">
+        <label for="userName">Name $requiredFieldWithHtml</label>
+        <input class="text" type="text" 
+            id="userName" name="userName" placeholder="FirstName LastName" value="$userFullName">
+            <div id="userName-error" class="error" style="display: none;">Please enter your name.</div>
+    </div>
+    <div class="field-group">
+        <label for="userEmail">Email $requiredFieldWithHtml</label>
+        <input class="text" type="text" 
+            id="userEmail" name="userEmail" placeholder="you@example.com" value="$userEmail">
+            <div id="userEmail-error" class="error" style="display: none;">Please enter your email.</div>
+    </div>
+    <div class="field-group">
+        <label for="phoneNumber">Phone Number $requiredFieldWithHtml</label>
+        <input class="text" type="text" 
+            id="phoneNumber" name="phoneNumber" placeholder="123-456-7890" value="$userPhoneNumber">
+            <div id="phoneNumber-error" class="error" style="display: none;">Please enter your phone number.</div>
+    </div>
+    <div class="field-group">
+        <label for="companyName">Company $requiredFieldWithHtml</label>
+        <input class="text" type="text" 
+            id="companyName" name="companyName" placeholder="Your Company">
+            <div id="companyName-error" class="error" style="display: none;">Please enter your company.</div>
+    </div>
+    <fieldset class="group">
+    <legend><span>Document Type $requiredFieldWithHtml</span></legend>
+    <div class="checkbox">
+        <input class="checkbox" type="checkbox" name="clinReqType" id="clinReqType">
+        <label for="clinReqType">Clinical Requirements</label>
+    </div> 
+    <div class="checkbox">
+        <input class="checkbox" type="checkbox" name="specType" id="specType">
+        <label for="specType">Specification</label>
+    </div> 
+    <div id="docType-error" class="error" style="display: none;">Please select one or more document types.</div>
+    </fieldset>
+    <fieldset>
+    <div class="field-group">
+        <label for="docDescription">Description of the Document $requiredFieldWithHtml</label>
+        <div class="description">
+    		For example,
+    		<ul>
+    			<li>Which institutions are involved in this project?</li>
+    			<li>What clinical systems need to be connected and what clinical information would be shared?</li>
+    			<li>What clinicians would be using these systems and information?</li>
+    			<li>What clinical benefit is expected to be achieved through this solution?</li>
+    		</ul>
+    	</div>
+        <textarea class="textarea long-field" rows="8" name="docDescription" id="docDescription" placeholder=""></textarea>
+    	<div id="docDescription-error" class="error" style="display: none;">Please enter a description.</div>
+    	
+    	
+    </div>
+	</fieldset>
+	<fieldset>
+    <div class="field-group">
+        <label for="questionsComments">Questions or comments</label>
+        <textarea class="textarea medium-long-field" rows="4" name="questionsComments" id="questionsComments" placeholder=""></textarea>
+    </div>
+	</fieldset>
+	<div class="buttons-container">
+        <div class="buttons">
+            <input class="button submit" type="submit" value="Submit" id="request-submit-button">
+        </div>
+    </div>
+	<input class="text" type="hidden" value="$pageId" id="pageId" name="pageId" hidden>
+</form>
+
+<script>
+	AJS.toInit(function() {
+		var userNameError = AJS.$("div#userName-error");
+		var emailInputError = AJS.$("div#userEmail-error");
+		var phoneInputError = AJS.$("div#phoneNumber-error");
+		var companyInputError = AJS.$("div#companyName-error");
+		var docTypeError = AJS.$("div#docType-error");
+		var descriptionInputError = AJS.$("div#docDescription-error");
+		
+		var userName = AJS.$("input#userName");
+		var emailInput = AJS.$("input#userEmail");
+		var phoneInput = AJS.$("input#phoneNumber");
+		var companyInput = AJS.$("input#companyName");
+		var clinReqCheckBox = AJS.$("input#clinReqType");
+		var specCheckBox = AJS.$("input#specType");
+		var descriptionInput = AJS.$("textarea#docDescription");
+		var questionsComments = AJS.$("textarea#questionsComments");
+
+		AJS.$("#submit_success").hide();	
+		AJS.$("#submit_failed").hide();	
+		AJS.$("#request-submit-form").hide();
+		
+		if(window.location.href.indexOf("submit=success") > -1) {
+			AJS.$("#submit_success").show();
+		} else if(window.location.href.indexOf("submit=failed") > -1) {
+			AJS.$("#submit_failed").show();
+		} else {
+			AJS.$("#request-submit-form").show();
+		}
+
+		AJS.$("#request-submit-form").on("submit", function(e) {
+			e.preventDefault();
+			
+			userNameError.hide();
+			emailInputError.hide();
+			phoneInputError.hide();
+			companyInputError.hide();
+			docTypeError.hide();
+			descriptionInputError.hide();
+			
+			var isValid = true;
+			var userNameVal = userName.val();
+			var emailInputVal = emailInput.val();
+			var phoneInputVal = phoneInput.val();
+			var companyInputVal = companyInput.val();
+			var clinReqCheckBoxVal = clinReqCheckBox.prop("checked");
+			var specCheckBoxVal = specCheckBox.prop("checked");
+			var descriptionInputVal = descriptionInput.val();
+			var questionsCommentsVal = questionsComments.val();
+			
+			if (userNameVal === "") {
+				isValid = false;
+				userNameError.show();
+			}
+			if (emailInputVal === "") {
+				isValid = false;
+				emailInputError.show();
+			}
+			if (phoneInputVal === "") {
+				isValid = false;
+				phoneInputError.show();
+			}
+			if (companyInputVal === "") {
+				isValid = false;
+				companyInputError.show();
+			}
+			if (!(clinReqCheckBoxVal || specCheckBoxVal)) {
+				isValid = false;
+				docTypeError.show();
+			}
+			if (descriptionInputVal === "") {
+				isValid = false;
+				descriptionInputError.show();
+			}
+			
+			if (isValid) {
+				this.submit();
+			}
+		});
+	});
+</script>

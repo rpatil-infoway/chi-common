@@ -1,0 +1,285 @@
+<style>
+div#aui-message-bar-edit-space-info {
+	position: absolute; 
+	top: 20px; 
+	left: 20px; 
+	z-index: 10;
+}
+</style>
+
+#if ($isVisible)	
+	<span><button id="edit-space-info-dialog-button" class="aui-button aui-button-link"><span class="aui-icon aui-icon-small aui-iconfont-edit"></span> Edit Space Info</button></span>
+#end
+   
+<script>
+	var dialog = new AJS.Dialog({
+    	width: 800, 
+    	height: 500, 
+    	id: "edit-space-info-dialog",
+	});
+
+	dialog.addHeader("Edit Space Info Dialog");
+	dialog.addPanel("Panel 1",
+	"<div id='aui-message-bar-edit-space-info'></div>" +
+	 "<form id=\"edit-space-info-form\" class=\"common-space-form aui\">" +
+"    	<div class=\"field-group\">" +
+"         	<label for=\"space-info-organizations\">Organizations<span class=\"aui-icon icon-required\"></span></label>" +
+"         	<div class=\"description\">Enter one or more values separated by commas:</div>" +
+"         	<input class=\"si-select2-tags\" id=\"space-info-organizations\" name=\"space-info-organizations\" />" +
+"         </div>" +
+"         <div class=\"field-group\">" +
+"         	<label for=\"space-info-domain\">Domain<span class=\"aui-icon icon-required\"></span></label>" +
+"         	<div class=\"description\">Select a provided value using the dropdown box:</div>" +
+"         	<select class=\"si-select2\" id=\"space-info-domain\" name=\"space-info-domain\">             " +
+"         		<option></option>" +
+"                <option class=\"si-domain-value\" value=\"Diagnostic Imaging\">Diagnostic Imaging</span></option>" +
+"                <option class=\"si-domain-value\" value=\"Laboratory\">Laboratory</option>" +
+"                <option class=\"si-domain-value\" value=\"Medication Management\">Medication Management</option>" +
+"                <option class=\"si-domain-value\" value=\"Public Health Surveillance\">Public Health Surveillance</option>    " +
+"        	</select>" +
+"        	<div class=\"description\">Or enter a new value below:</div>" +
+"        	<input class=\"text\" type=\"text\" id=\"space-info-other-domain\">" +
+"         </div>" +
+"         <div class=\"field-group\">" +
+"         	<label for=\"space-info-clinical-area\">Clinical Area<span class=\"aui-icon icon-required\"></label>" +
+"         	<div class=\"description\">Select a provided value using the dropdown box:</div>" +
+"         	<select class=\"si-select2\" id=\"space-info-clinical-area\" name=\"space-info-clinical-area\">" +
+"         		<option></option>             " +
+"                <option class=\"si-clin-area-value\" value=\"Pharmacy\">Pharmacy</option>" +
+"                <option class=\"si-clin-area-value\" value=\"Medicine\">Medicine</option>" +
+"                <option class=\"si-clin-area-value\" value=\"Nursing\">Nursing</option>     " +
+"        	</select>" +
+"        	<div class=\"description\">Or enter a new value below:</div>" +
+"        	<input class=\"text\" type=\"text\" id=\"space-info-other-clinical-area\">" +
+"         </div>" +
+"         <div class=\"field-group\">" +
+"			<label for=\"space-info-jurisdictions\">Jurisdictions</label>" +
+"			<select class=\"si-select2\" multiple=\"multiple\" id=\"space-info-jurisdictions\" name=\"space-info-jurisdictions\">" +
+"				<option value=\"CA\">CA</option>" +
+"                <option value=\"AB\">AB</option>" +
+"                <option value=\"BC\">BC</option>" +
+"                <option value=\"MB\">MB</option>" +
+"                <option value=\"NB\">NB</option>" +
+"                <option value=\"NL\">NL</option>" +
+"                <option value=\"NS\">NS</option>" +
+"                <option value=\"NT\">NT</option>" +
+"                <option value=\"NU\">NU</option>" +
+"                <option value=\"ON\">ON</option>" +
+"                <option value=\"PE\">PE</option>" +
+"                <option value=\"QC\">QC</option>" +
+"                <option value=\"SK\">SK</option>" +
+"                <option value=\"YT\">YT</option>" +
+"            </select>" +
+"         </div>  " +
+"         <div class=\"field-group\">" +
+"         	<label for=\"space-info-standards\">Standards</label>" +
+"         	<div class=\"description\">Select one or more provided values using the dropdown box:</div>" +
+"         	<select class=\"si-select2\" multiple=\"multiple\" id=\"space-info-standards\" name=\"space-info-standards\">" +
+"                <option class=\"si-standard-value\" value=\"CDA\">CDA</option>" +
+"                <option class=\"si-standard-value\" value=\"CeRx\">CeRx</option>" +
+"                <option class=\"si-standard-value\" value=\"MR\">MR</option>" +
+"                <option class=\"si-standard-value\" value=\"FHIR\">FHIR</option>" +
+"                <option class=\"si-standard-value\" value=\"HL7v2\">HL7 v2</option>" +
+"  				<option class=\"si-standard-value\" value=\"IHE\">IHE</option>" +
+"  				<option class=\"si-standard-value\" value=\"DICOM\">DICOM</option>" +
+"            </select>" +
+"            <div class=\"description\">Or enter one or more new values separated by commas:</div>" +
+"            <input class=\"si-select2-tags\" id=\"space-info-other-standards\">" +
+"         </div>" +
+"         <div class=\"field-group\">" +
+"         	<label for=\"space-info-standards-version\">Standards Version</label>" +
+"            <input class=\"text\" type=\"text\" id=\"space-info-standards-version\"/>" +
+"         </div>" +
+"         <div class=\"field-group\">" +
+"         	<label for=\"space-info-metadata\">Additional Metadata</label>" +
+"         	<div class=\"description\">Enter one or more new values separated by commas:</div>" +
+"         	<input class=\"si-select2-tags\" id=\"space-info-metadata\" name=\"space-info-metadata\" />" +
+"         </div>"
+	 , "edit-space-info-dialog-body");
+	
+	var servletUrl = "$settingsManager.getGlobalSettings().getBaseUrl()/plugins/servlet/infoway/editspaceinfo";
+	#set ( $d = "$") 
+	dialog.addButton("Save changes", function(dialog) {
+		dialog.disable();
+   		var jurisdictionsRequest = AJS.$("#space-info-jurisdictions").val() !== null ? AJS.$("#space-info-jurisdictions").val() : "";
+   		var domainRequest =  AJS.$("#space-info-domain").val();
+   		var clinicalAreaRequest = AJS.$("#space-info-clinical-area").val();
+   		var standardsRequest = AJS.$("#space-info-standards").val() !== null ? AJS.$("#space-info-standards").val() : "";
+   		var standardsVersionRequest = AJS.$("#space-info-standards-version").val();
+   		var organizationRequest = AJS.$("#space-info-organizations").val().split(",");
+   		var metadataRequest = AJS.$("#space-info-metadata").val();
+   		
+   		var domainFreeFormVal = AJS.$("#space-info-other-domain").val();
+   		if (domainFreeFormVal !== null && domainFreeFormVal !== "") {
+   			domainRequest = domainFreeFormVal;
+   		}
+   		
+   		var clinicalAreaFreeFormVal = AJS.$("#space-info-other-clinical-area").val();
+   		if (clinicalAreaFreeFormVal !== null && clinicalAreaFreeFormVal !== "") {
+   			clinicalAreaRequest = clinicalAreaFreeFormVal;
+   		}
+   		
+   		var standardFreeFormVal = AJS.$("#space-info-other-standards").val();
+   		if (standardFreeFormVal !== null && standardFreeFormVal !== "") {
+   			standardsRequest = standardFreeFormVal.split(",");
+   		}
+   		
+   		AJS.${d}.ajax({
+    		type: 'get', // it's easier to read GET request parameters
+    		url: servletUrl,
+    		dataType: 'JSON',
+    		data: {
+    			// check if organization, domain, or clinical area are empty
+    			organizations: organizationRequest,
+    			domain: domainRequest,
+    			clinicalArea: clinicalAreaRequest,
+    			jurisdictions: jurisdictionsRequest,
+    			standards: standardsRequest,
+    			standardsVersion:standardsVersionRequest,
+    			metadata: metadataRequest,
+    			spaceKey: "$spaceKey",
+    		},
+    		success: function(data) {
+    			AJS.messages.success("#aui-message-bar-edit-space-info", {
+   					title:"Space Info Changes Successful!",
+   					body: "<p> The page is now reloading...</p>",
+   					fadeout: true,
+   					delay: 300,
+   					duration: 2000
+				});
+				//alert('Space Info successful. Re-loading page...');
+				location.reload();
+    		},
+    		error: function(data, textStatus, errorThrown) {
+    			var bodyText = "Error Status: " + data.statusText;
+    			if (data.status === 403) {
+    				bodyText += "<br>You do not have the required privileges to perform this operation.";
+    			} else if (data.status === 422) {
+    				bodyText += "<br>One or more of the required fields are missing.";
+    			}
+    			AJS.messages.error("#aui-message-bar-edit-space-info", {
+   					title:"Space Info Changes Failed",
+   					body: "Error code: <b><span style=\"color: #d04437\">" + data.status + "</b></span><br>" + bodyText,
+   					closeable: true,
+   					fadeout: true,
+   					duration: 1500,
+				});
+        		//alert('Space Info changes failed.');
+    		},
+    		complete: function() {
+    			dialog.enable();
+    		}
+		});
+	});
+	
+	// adds "Cancel" button to page 1
+	dialog.addButton("Cancel", function (dialog) {
+    	dialog.hide();
+	});
+	
+	// Add events to dialog trigger elements
+	AJS.$("#edit-space-info-dialog-button").click(function() {
+    	// PREPARE FOR DISPLAY
+    	// start first page, first panel
+    	dialog.gotoPage(0);
+    	dialog.gotoPanel(0);
+    	dialog.show();
+	});
+	
+	var allStandardOptions = [];
+		AJS.$("option.si-standard-value").each(function() {
+			allStandardOptions.push(AJS.$(this).val().toLowerCase());
+		});
+	
+		AJS.$(".si-select2").auiSelect2({
+			placeholder: "Click to select a value",
+			allowClear: true
+		});
+		
+		AJS.$(".si-select2[multiple='multiple']").auiSelect2({
+			placeholder: "Click to select one or more values"
+		});
+		
+		AJS.$(".si-select2-tags").auiSelect2({ 
+			tags: true,
+			tokenSeparators: [',']
+		});
+		
+		var jurisdictionInput = AJS.$("#s2id_space-info-jurisdictions");
+		var domainInput = AJS.$("#s2id_space-info-domain");
+		var domainFreeForm = AJS.$("#space-info-other-domain");
+		var clinAreaInput = AJS.$("#s2id_space-info-clinical-area");
+		var clinAreaFreeForm = AJS.$("#space-info-other-clinical-area");
+		var standardInput = AJS.$("#s2id_space-info-standards");
+		var standardFreeForm = AJS.$("#s2id_space-info-other-standards");
+		var standardsVersionInput = AJS.$("#space-info-standards-version");
+		var organizationsInput = AJS.$("#s2id_space-info-organizations");
+		var metadataInput = AJS.$("#s2id_space-info-metadata");
+		
+		var domainRawSelect = AJS.$("#space-info-domain");
+		var clinAreaRawSelect = AJS.$("#space-info-clinical-area");
+		
+		var jurisdictionData = [];
+		#foreach ($val in $jurisdictions)
+			jurisdictionData.push("$val");
+		#end
+		
+		var standardsData = [];
+		#foreach ($val in $standards)
+			standardsData.push("$val");
+		#end
+		
+		var organizationData = [];
+		#foreach ($val in $organizations)
+			organizationData.push("$val");
+		#end
+
+		var metadataData = [];
+		#foreach ($val in $metadata)
+			metadataData.push("$val");
+		#end
+
+		## set initial values from bandana
+		## NOTE: for domain, clinical area, and standards, these selects allow custom input, so need to be careful fo that
+		standardsVersionInput.val("$standardsVersion");
+		populateSelectElement(domainInput, domainFreeForm, "$domain", domainRawSelect, "si-domain-value");
+		populateSelectElement(clinAreaInput, clinAreaFreeForm, "$clinArea", clinAreaRawSelect, "si-clin-area-value");
+		populateMultiSelectElement(organizationsInput, null, organizationData);
+		populateMultiSelectElement(jurisdictionInput, null, jurisdictionData);
+		populateMultiSelectElement(metadataInput, null, metadataData);
+		populateMultiSelectElement(standardInput, standardFreeForm, standardsData);
+		
+		function populateSelectElement(selectElement, freeFormElement, storedValue, rawSelect, optionClass) {
+			if (storedValue !== "") {
+				var selectOption = AJS.$("option." + optionClass).filter(function() {return AJS.$(this).val().toLowerCase() === storedValue.toLowerCase()})[0];
+				if ( typeof selectOption == "object" ) {
+  					selectElement.select2("val", AJS.$(selectOption).val());
+				} else {
+					freeFormElement.val(storedValue);
+				}
+			}
+		}
+		
+		function populateMultiSelectElement(selectElement, freeFormElement, storedValues) {
+			if (freeFormElement == null) {
+				selectElement.select2("val", storedValues);
+			} else {
+				// for the case of standards
+				// if there is at least one stored value that does not correspond to the
+				// options, then we need to populate the free form element
+				var isOverrided = false;
+				for (var i = 0; i < storedValues.length; i++) {
+					var data = storedValues[i];
+					if (allStandardOptions.indexOf(data.toLowerCase()) == -1) {
+						isOverrided = true;
+						break;
+					}
+				}
+				if (isOverrided) {
+					freeFormElement.select2("val", storedValues);
+				} else {
+					selectElement.select2("val", storedValues);
+				}
+			}
+		}
+</script>

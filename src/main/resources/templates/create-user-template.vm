@@ -1,0 +1,39 @@
+<form id="create-user-submit-form" class="aui" action="$settingsManager.getGlobalSettings().getBaseUrl()/plugins/infoway-actions/create-user-submit.action">
+	<input class="text" type="hidden" value="$username" name="userName" hidden>
+	<input class="text" type="hidden" value="$pageId" name="pageId" hidden>
+    <input class="aui-button aui-button-primary" type="submit" value="Request Access" style="font-size: 20px; color: white;">
+	<p>to InfoScribe</p>
+</form>
+
+<script>
+/* NOTE: code below is commented since it is no longer needed
+ 
+//substite dollar sign in script
+#set ($d = "$")
+AJS.toInit(function() {
+
+  var ssoToken = null;
+
+  // Get ssoToken token and set it to the hidden field
+  if (window.location.href.indexOf("localhost:1990") > -1) {
+	ssoToken = "localhost";
+  } else if (window.location.href.indexOf("infoscribe.de-emri11.extra.infoway-inforoute.ca") > -1) {
+  	ssoToken = ${d}.cookie("iPlanetDirectoryPro");
+  } else if (window.location.href.indexOf("infoscribe.staging.emri.infoway-inforoute.ca") > -1) {
+  	ssoToken = ${d}.cookie("iPlanetDirectoryPro");
+  } else if (window.location.href.indexOf("infoscribe.infoway-inforoute.ca") > -1) {
+  	ssoToken = ${d}.cookie("iPlanetDirectoryProPROD");
+  }
+  
+  AJS.$("[id='create-user-submit-form']").hide();	
+
+  if (ssoToken != null) {
+	  AJS.$("[id='create-user-submit-form']").show();	
+      AJS.$("#ssoToken").val(ssoToken);
+  }
+  
+});
+*/
+</script>
+
+

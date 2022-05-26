@@ -1,0 +1,22 @@
+<p>
+  <strong>On this Page:</strong>
+</p>
+<p>
+  <ac:structured-macro ac:name="toc"/>
+</p>
+ 
+<h1>Scope</h1>
+<ac:structured-macro ac:name="tip">
+  <ac:rich-text-body>This section identifies the scope for the Clinical Requirements and includes an understanding of the systems involved, the functionality of the systems, the number of users, the user type and will result in a clear identification of what is in scope and what is out of scope. Scope may also include the purpose for the clinical requirements.</ac:rich-text-body>
+</ac:structured-macro>
+<p>
+  <ac:placeholder>Enter content here.</ac:placeholder>
+</p>
+
+<h1>Definitions</h1>
+<ac:structured-macro ac:name="tip">
+  <ac:rich-text-body>This section provides definitions for key terms that are used within this Clinical Requirements document.</ac:rich-text-body>
+</ac:structured-macro>
+<p>
+<ac:placeholder>Enter content here.</ac:placeholder>
+</p>

@@ -1,0 +1,9 @@
+<a id="$tipId"  href="#" class="group-tooltip" title="$tooltipText">
+	<span class="aui-icon aui-icon-small aui-iconfont-help" style="$iconStyle"></span>
+</a>
+
+<script>
+    AJS.toInit(function(){
+		AJS.$("#$tipId").tooltip();
+	});
+</script>
