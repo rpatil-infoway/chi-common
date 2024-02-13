@@ -1,6 +1,7 @@
 <!-- SPACE_NAME will be set dynamically in HomepageMacro.java  -->
 <ac:structured-macro ac:name="unmigrated-wiki-markup">
-  <ac:plain-text-body><![CDATA[{metadata:scroll.pagetitle|hidden=true}***SPACE_NAME***{metadata}]]></ac:plain-text-body>
+<!--  <ac:plain-text-body><![CDATA[{metadata:scroll.pagetitle|hidden=true}***SPACE_NAME***{metadata}]]></ac:plain-text-body>
+-->
 </ac:structured-macro>
 
 <ac:structured-macro ac:name="scroll-pdf-ignore">

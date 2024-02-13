@@ -22,7 +22,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
   </component>
   <component name="SvnConfiguration" cleanupOnStartRun="true">
     <configuration>C:\Users\rpatil\AppData\Roaming\Subversion</configuration>
@@ -39,19 +39,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="349" y="173" key="com.intellij.ide.util.TipDialog" timestamp="1637179836495">
+    <state x="349" y="173" key="com.intellij.ide.util.TipDialog" timestamp="1674547413932">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="349" y="173" key="com.intellij.ide.util.TipDialog/0.0.1280.689@0.0.1280.689" timestamp="1637179836495" />
-    <state x="-382" y="0" width="1280" height="689" key="find.popup" timestamp="1635108644202">
-      <screen x="0" y="0" width="1280" height="689" />
-    </state>
-    <state x="-382" y="0" width="1280" height="689" key="find.popup/0.0.1280.689@0.0.1280.689" timestamp="1635108644202" />
-    <state x="1671" y="0" width="1075" height="689" key="find.popup/0.0.1600.870/1600.0.1280.689@1600.0.1280.689" timestamp="1632714719148" />
-    <state x="303" y="10" width="672" height="678" key="search.everywhere.popup" timestamp="1634664553881">
-      <screen x="0" y="0" width="1280" height="689" />
-    </state>
-    <state x="303" y="10" width="672" height="678" key="search.everywhere.popup/0.0.1280.689@0.0.1280.689" timestamp="1634664553881" />
-    <state x="1903" y="10" width="672" height="678" key="search.everywhere.popup/0.0.1600.870/1600.0.1280.689@1600.0.1280.689" timestamp="1632960229145" />
+    <state x="349" y="173" key="com.intellij.ide.util.TipDialog/0.0.1280.689@0.0.1280.689" timestamp="1674547413932" />
   </component>
 </project>
